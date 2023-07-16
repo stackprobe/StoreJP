@@ -1,0 +1,44 @@
+<!-- {10155-7092785728522475511857951230288-6311486168952299600265224043199-0596845666972686937725040055896-7976353609273511449165172294275-3749522759150037778409079377983} -->
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+<meta name="robots" content="$(ROBOTS)">
+<title>$(TITLE)</title>
+<style>
+
+body {
+	color: $(TEXT-COLOR);
+	background-color: $(BACK-COLOR);
+}
+
+div {
+	font: normal 16px sans-serif;
+	margin: 1em;
+}
+
+img {
+	border-style: none;
+	max-width: 100%;
+	max-height: 100%;
+}
+
+a {
+	color: $(LINK-COLOR);
+	text-decoration: none;
+}
+
+a:hover {
+	color: $(BACK-COLOR);
+	background-color: $(TEXT-COLOR);
+}
+
+</style>
+</head>
+<body>
+$(HEADER)
+$(DIV-LIST)
+$(FOOTER)
+<br/>
+<br/>
+</body>
+</html>
