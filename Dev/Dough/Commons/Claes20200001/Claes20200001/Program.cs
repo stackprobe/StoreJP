@@ -65,6 +65,7 @@ namespace Charlotte
 			//new Test0003().Test03(); // RandomUnit
 			//new Test0003().Test04(); // RandomUnit
 			//new Test0003().Test05(); // RandomUnit
+			new Test0003().Test06(); // RandomUnit
 			//new Test0004().Test01(); // SCommon.Serializer
 			//new Test0005().Test01(); // SCommon.Hex
 			//new Test0005().Test02(); // SCommon.Hex
@@ -83,7 +84,7 @@ namespace Charlotte
 			//new Test0010().Test03(); // SCommon.Tokenize
 			//new Test0010().Test04(); // SCommon.Tokenize
 			//new Test0011().Test01(); // SCommon.Generate
-			new Test0012().Test01(); // SimpleDateTime
+			//new Test0012().Test01(); // SimpleDateTime
 			//new Test0013().Test01(); // SCommon.GetSJISBytes
 			//new Test0014().Test01(); // SCommon.Batch
 			//new Test0015().Test01(); // SCommon.Compress, SCommon.Decompress

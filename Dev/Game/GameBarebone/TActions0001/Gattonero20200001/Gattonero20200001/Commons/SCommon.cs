@@ -2602,10 +2602,12 @@ namespace Charlotte.Commons
 			private const long TIME_STAMP_MIN = 10101000000L;
 			private const long TIME_STAMP_MAX = 9223372031231235959L;
 
+			private const long SEC_MIN = 0L;
+
 			public static long ToSec(long timeStamp)
 			{
 				if (timeStamp < TIME_STAMP_MIN || TIME_STAMP_MAX < timeStamp)
-					return 0;
+					return SEC_MIN;
 
 				int s = (int)(timeStamp % 100);
 				timeStamp /= 100;
@@ -2626,7 +2628,7 @@ namespace Charlotte.Commons
 					i < 0 || 59 < i ||
 					s < 0 || 59 < s
 					)
-					return 0;
+					return SEC_MIN;
 
 				if (m <= 2)
 					y--;
@@ -2667,7 +2669,7 @@ namespace Charlotte.Commons
 
 			public static long ToTimeStamp(long sec)
 			{
-				if (sec < 0)
+				if (sec < SEC_MIN)
 					return TIME_STAMP_MIN;
 
 				int s = (int)(sec % 60);

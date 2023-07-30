@@ -199,5 +199,35 @@ namespace Charlotte.Tests
 				Encoding.ASCII
 				);
 		}
+
+		public void Test06()
+		{
+			RandomUnit ru = new RandomUnit(new RandomNumberGenerator_05());
+
+			if (0x000000a5U != ru.GetUInt8()) throw null;
+			if (0x0000a5a5U != ru.GetUInt16()) throw null;
+			if (0x00a5a5a5U != ru.GetUInt24()) throw null;
+			if (0xa5a5a5a5U != ru.GetUInt32()) throw null;
+
+			if (0x000000a5a5a5a5a5UL != ru.GetULong40()) throw null;
+			if (0x0000a5a5a5a5a5a5UL != ru.GetULong48()) throw null;
+			if (0x00a5a5a5a5a5a5a5UL != ru.GetULong56()) throw null;
+			if (0xa5a5a5a5a5a5a5a5UL != ru.GetULong64()) throw null;
+
+			Console.WriteLine("OK! (TEST-0003-06)");
+		}
+
+		private class RandomNumberGenerator_05 : RandomUnit.IRandomNumberGenerator
+		{
+			public byte[] GetBlock()
+			{
+				return new byte[] { 0xa5 };
+			}
+
+			public void Dispose()
+			{
+				// noop
+			}
+		}
 	}
 }

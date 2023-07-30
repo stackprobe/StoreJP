@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Charlotte.Commons;
-using Charlotte.GameCommons;
 using Charlotte.Drawings;
+using Charlotte.GameCommons;
 
 namespace Charlotte.Games.SActions.Shots
 {

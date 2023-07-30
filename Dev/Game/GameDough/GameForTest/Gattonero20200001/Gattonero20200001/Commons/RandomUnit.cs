@@ -31,7 +31,7 @@ namespace Charlotte.Commons
 		private byte[] Cache = SCommon.EMPTY_BYTES;
 		private int NextRdIndex = 0;
 
-		public byte GetByte()
+		private byte GetByte()
 		{
 			if (this.Cache.Length <= this.NextRdIndex)
 			{
@@ -64,6 +64,30 @@ namespace Charlotte.Commons
 			return dest;
 		}
 
+		public uint GetUInt8()
+		{
+			return (uint)this.GetByte();
+		}
+
+		public uint GetUInt16()
+		{
+			byte[] r = GetBytes(2);
+
+			return
+				((uint)r[0] << 0) |
+				((uint)r[1] << 8);
+		}
+
+		public uint GetUInt24()
+		{
+			byte[] r = GetBytes(3);
+
+			return
+				((uint)r[0] << 0) |
+				((uint)r[1] << 8) |
+				((uint)r[2] << 16);
+		}
+
 		public uint GetUInt32()
 		{
 			byte[] r = GetBytes(4);
@@ -73,6 +97,18 @@ namespace Charlotte.Commons
 				((uint)r[1] << 8) |
 				((uint)r[2] << 16) |
 				((uint)r[3] << 24);
+		}
+
+		public ulong GetULong40()
+		{
+			byte[] r = GetBytes(5);
+
+			return
+				((ulong)r[0] << 0) |
+				((ulong)r[1] << 8) |
+				((ulong)r[2] << 16) |
+				((ulong)r[3] << 24) |
+				((ulong)r[4] << 32);
 		}
 
 		public ulong GetULong48()
@@ -86,6 +122,20 @@ namespace Charlotte.Commons
 				((ulong)r[3] << 24) |
 				((ulong)r[4] << 32) |
 				((ulong)r[5] << 40);
+		}
+
+		public ulong GetULong56()
+		{
+			byte[] r = GetBytes(7);
+
+			return
+				((ulong)r[0] << 0) |
+				((ulong)r[1] << 8) |
+				((ulong)r[2] << 16) |
+				((ulong)r[3] << 24) |
+				((ulong)r[4] << 32) |
+				((ulong)r[5] << 40) |
+				((ulong)r[6] << 48);
 		}
 
 		public ulong GetULong64()
