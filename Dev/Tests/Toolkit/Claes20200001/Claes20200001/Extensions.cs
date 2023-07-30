@@ -7,6 +7,11 @@ namespace Charlotte
 {
 	public static class Extensions
 	{
+		public static IEnumerable<T> DistinctOrderBy<T>(this IEnumerable<T> src, Comparison<T> comp)
+		{
+			return src.OrderBy(comp).OrderedDistinct((a, b) => comp(a, b) == 0);
+		}
+
 		public static IEnumerable<T> OrderBy<T>(this IEnumerable<T> src, Comparison<T> comp)
 		{
 			List<T> list = src.ToList();
@@ -33,11 +38,6 @@ namespace Charlotte
 					}
 				}
 			}
-		}
-
-		public static IEnumerable<T> DistinctOrderBy<T>(this IEnumerable<T> src, Comparison<T> comp)
-		{
-			return src.OrderBy(comp).OrderedDistinct((a, b) => comp(a, b) == 0);
 		}
 	}
 }

@@ -119,7 +119,7 @@ readArgs:
 	cout("TimeoutSec: %I64u %.3f %.3f\n", TimeoutSec, TimeoutSec / 3600.0, TimeoutSec / 86400.0);
 	cout("RootDir: %s\n", RootDir);
 
-	errorCase(!m_isRange(TimeoutSec, 0, IMAX_64));
+	errorCase(!m_isRange(TimeoutSec, 0, IMAX64));
 	errorCase(!existDir(RootDir));
 
 	errorCase(_stricmp("DELETE-OLD-CACHE", nextArg())); // ˆÀ‘S‚Ì‚½‚ß

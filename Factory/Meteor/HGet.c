@@ -63,7 +63,7 @@ void HGet_Reset(void)
 	if (!ResHeaderFile)  { ResHeaderFile  = makeTempPath("HGet_ResHeader.tmp");      }
 	if (!ResBodyFile)    { ResBodyFile    = makeTempPath("HGet_ResBody.tmp");        }
 	if (!ParamFile)      { ParamFile      = makeTempPath("HGet_Param.tmp");          }
-	ResBodySizeMax = IMAX_64;
+	ResBodySizeMax = IMAX64;
 	Resetted = 1;
 
 	// clear

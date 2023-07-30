@@ -94,7 +94,7 @@ int main(int argc, char **argv)
 	cout("DiskFreeLimit: %I64u\n", DiskFreeLimit);
 	cout("YellowCommand: %s\n", YellowCommand);
 
-	errorCase(!m_isRange(DiskFreeLimit, 1ui64, IMAX_64));
+	errorCase(!m_isRange(DiskFreeLimit, 1ui64, IMAX64));
 	errorCase(m_isEmpty(YellowCommand));
 
 	Monitor();

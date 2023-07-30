@@ -9,7 +9,7 @@ static uint64 GetTestValue(void)
 	case 0: return mt19937_rnd64Mod((uint64)30000);
 	case 1: return mt19937_rnd64Mod((uint64)IMAX);
 	case 2: return mt19937_rnd64Mod((uint64)IMAX * 30000);
-	case 3: return mt19937_rnd64Mod(IMAX_64);
+	case 3: return mt19937_rnd64Mod(IMAX64);
 
 	default:
 		error(); // never

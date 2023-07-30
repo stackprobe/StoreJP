@@ -39,6 +39,7 @@
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Numerics" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -52,6 +53,7 @@
     <Compile Include="Commons\ProcMain.cs" />
     <Compile Include="Commons\RandomUnit.cs" />
     <Compile Include="Commons\SCommon.cs" />
+    <Compile Include="Commons\SimpleDateTime.cs" />
     <Compile Include="Commons\WorkingDir.cs" />
     <Compile Include="Consts.cs" />
     <Compile Include="Extensions.cs" />

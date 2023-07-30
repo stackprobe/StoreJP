@@ -50,7 +50,7 @@ namespace Charlotte.Commons
 		private static string GetRootDir()
 		{
 			string dirTMP = GetTMPDir();
-			long timeStamp = SCommon.SimpleDateTime.Now().ToTimeStamp();
+			long timeStamp = SimpleDateTime.Now().ToTimeStamp();
 			string uuid = Guid.NewGuid().ToString("B");
 
 			return Path.Combine(dirTMP, "Claes20200001_TMP_" + timeStamp + "_" + uuid);

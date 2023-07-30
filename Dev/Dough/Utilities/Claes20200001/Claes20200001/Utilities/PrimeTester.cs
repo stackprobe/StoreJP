@@ -96,7 +96,7 @@ return probably prime
 		{
 			uint a = 1;
 
-			for (; 1 <= e; e >>= 1)
+			for (; e != 0; e >>= 1)
 			{
 				if ((e & 1) != 0)
 					a = (uint)(((ulong)a * b) % m);
@@ -130,7 +130,7 @@ return probably prime
 		{
 			ulong a = 1;
 
-			for (; 1 <= e; e >>= 1)
+			for (; e != 0; e >>= 1)
 			{
 				if ((e & 1) != 0)
 					a = ModMul64(a, b, m);
@@ -144,7 +144,7 @@ return probably prime
 		{
 			ulong a = 0;
 
-			for (; 1 <= e; e >>= 1)
+			for (; e != 0; e >>= 1)
 			{
 				if ((e & 1) != 0)
 					a = ModAdd64(a, b, m);

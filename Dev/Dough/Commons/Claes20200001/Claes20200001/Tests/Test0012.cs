@@ -7,18 +7,18 @@ using Charlotte.Commons;
 namespace Charlotte.Tests
 {
 	/// <summary>
-	/// SCommon.SimpleDateTime テスト
+	/// SimpleDateTime テスト
 	/// </summary>
 	public class Test0012
 	{
 		public void Test01()
 		{
-			Console.WriteLine(SCommon.SimpleDateTime.Now().ToDateTime());
-			Console.WriteLine(new SCommon.SimpleDateTime(SCommon.SimpleDateTime.Now().ToDateTime()));
+			Console.WriteLine(SimpleDateTime.Now().ToDateTime());
+			Console.WriteLine(new SimpleDateTime(SimpleDateTime.Now().ToDateTime()));
 
 			// ----
 
-			SCommon.SimpleDateTime dt = SCommon.SimpleDateTime.Now();
+			SimpleDateTime dt = SimpleDateTime.Now();
 
 			Console.WriteLine(dt); // Now
 			Console.WriteLine(dt++); // Now

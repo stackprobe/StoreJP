@@ -41,6 +41,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Numerics" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -56,6 +57,7 @@
     <Compile Include="Commons\ProcMain.cs" />
     <Compile Include="Commons\RandomUnit.cs" />
     <Compile Include="Commons\SCommon.cs" />
+    <Compile Include="Commons\SimpleDateTime.cs" />
     <Compile Include="Commons\WorkingDir.cs" />
     <Compile Include="Consts.cs" />
     <Compile Include="Extensions.cs" />

@@ -9,7 +9,7 @@ using Charlotte.Utilities;
 
 namespace Charlotte.Tests
 {
-	class Test0002
+	public class Test0002
 	{
 		private const string INPUT_ROOT_DIR = @"C:\temp";
 

@@ -200,7 +200,7 @@ static uint64 R_GetStamp(void)
 	{
 		return *(uint64 *)getLastElement(R_Stamps);
 	}
-	return IMAX_64 - 1;
+	return IMAX64 - 1;
 }
 
 // ---- RawDataWriter ----

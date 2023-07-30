@@ -203,8 +203,8 @@ readArgs:
 	cout("DirFileCountMax: %I64u\n", DirFileCountMax);
 	cout("RootDir: %s\n", RootDir);
 
-	errorCase(!m_isRange(TotalSizeMax, 1, IMAX_64));
-	errorCase(!m_isRange(DirSizeMax, 1, IMAX_64));
+	errorCase(!m_isRange(TotalSizeMax, 1, IMAX64));
+	errorCase(!m_isRange(DirSizeMax, 1, IMAX64));
 	errorCase(!m_isRange(DirFileCountMax, 1, IMAX));
 
 	errorCase(!existDir(RootDir));

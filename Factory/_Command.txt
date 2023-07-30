@@ -1,0 +1,61 @@
+----
+今も使用しているコマンド
+
+	Clean
+	Rebuild
+
+	cx
+	qq
+	qqc         <-- Clean.bat
+	zz
+
+	MoteClean   <-- qq
+	SolClean    <-- qq
+
+	7z
+	z7
+
+	ees /lss
+	ees /lss /e
+
+	DvCmHs
+	DvUtHs
+	DvBtHs
+
+	rr
+	collout
+
+	RenameAll
+	RenameAllSub
+
+	lss
+	lssColl
+	lssExt
+	lssImg
+	lssLocal
+	lssRemove
+
+	TypeAll
+	TypeAll /lss
+	TypeGroupBy
+	Grape
+
+	Search
+	fs
+	fe
+	de
+	ef
+
+	wavMakeMuon
+	wavPutMuon
+	wavVolume
+
+	md5 /lss
+	md5 /s
+	dmd5
+	dmd5 /s
+
+	OrderStamp
+
+	Longest
+

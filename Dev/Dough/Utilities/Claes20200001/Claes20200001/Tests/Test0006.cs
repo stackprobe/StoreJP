@@ -82,12 +82,6 @@ namespace Charlotte.Tests
 
 			// ----
 
-			Test02_b("西暦1970年1月1日", 19700101);
-			Test02_b("s64-01-07", 19890107);
-			Test02_b("H1.1.8", 19890108);
-
-			// ----
-
 			Console.WriteLine("OK! (TEST-0006-02)");
 		}
 
@@ -104,18 +98,6 @@ namespace Charlotte.Tests
 
 				if (date2.GetYMD() != ymd)
 					throw new Exception("日付不一致");
-			}
-		}
-
-		private void Test02_b(string str, int assumeYmd)
-		{
-			int ymd = JapaneseDate.Create(str).GetYMD();
-
-			Console.WriteLine(str + " ==> " + ymd + " (" + assumeYmd + ")");
-
-			if (ymd != assumeYmd)
-			{
-				throw null;
 			}
 		}
 

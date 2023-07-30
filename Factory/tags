@@ -598,7 +598,7 @@ C:\Factory\Common\Define.h(72) : m_isRange // 定義
 C:\Factory\Common\Define.h(75) : FOUNDLISTFILE // 定義
 C:\Factory\Common\Define.h(76) : SECTIONLISTFILE // 定義
 C:\Factory\Common\Define.h(85) : IMAX // 定義
-C:\Factory\Common\Define.h(95) : IMAX_64 // 定義
+C:\Factory\Common\Define.h(95) : IMAX64 // 定義
 C:\Factory\Common\Define.h(97) : m_01 // 定義
 C:\Factory\Common\Define.h(100) : m_10 // 定義
 C:\Factory\Common\Define.h(103) : m_noz // 定義
@@ -4000,6 +4000,15 @@ C:\Factory\DevTools\Count.c(39) : GetCountLines_x // 関数
 C:\Factory\DevTools\Count.c(46) : DispCount // 関数
 C:\Factory\DevTools\Count.c(50) : main // 関数
 C:\Factory\DevTools\de.c(3) : main // 関数
+C:\Factory\DevTools\DvBtHs.c(10) : CleanBatches // 変数又は宣言
+C:\Factory\DevTools\DvBtHs.c(11) : ReleaseBatches // 変数又は宣言
+C:\Factory\DevTools\DvBtHs.c(12) : ReleaseBatchGroupNames // 変数又は宣言
+C:\Factory\DevTools\DvBtHs.c(13) : ExistDiffOverall // 変数又は宣言
+C:\Factory\DevTools\DvBtHs.c(15) : GetFileMD5 // 関数
+C:\Factory\DevTools\DvBtHs.c(31) : DiffFileSetToFoundFileList // 関数
+C:\Factory\DevTools\DvBtHs.c(35) : ShowBatchFiles // 関数
+C:\Factory\DevTools\DvBtHs.c(74) : ShowAllBatchFiles // 関数
+C:\Factory\DevTools\DvBtHs.c(118) : main // 関数
 C:\Factory\DevTools\DvCmHs.c(11) : CommonsDirNames // 変数又は宣言
 C:\Factory\DevTools\DvCmHs.c(12) : CommonsDirsList // 変数又は宣言
 C:\Factory\DevTools\DvCmHs.c(13) : ExistDiffOverall // 変数又は宣言
@@ -7797,6 +7806,10 @@ C:\Factory\Petra\GitRelease.c(22) : CopyToRepoDir // 関数
 C:\Factory\Petra\GitRelease.c(43) : RemoveNotNeedFiles // 関数
 C:\Factory\Petra\GitRelease.c(52) : main // 関数
 C:\Factory\Petra\Lock.c(7) : main // 関数
+C:\Factory\Petra\makeMITLicense.c(3) : LICENSE_TEMPLATE // 定義
+C:\Factory\Petra\makeMITLicense.c(5) : GetYearFrom // 関数
+C:\Factory\Petra\makeMITLicense.c(32) : IsOutFileChanged // 関数
+C:\Factory\Petra\makeMITLicense.c(46) : main // 関数
 C:\Factory\Petra\MoveDevOutToHPStore.c(12) : main // 関数
 C:\Factory\Petra\PublicLog.c(7) : LOG_FILE // 定義
 C:\Factory\Petra\PublicLog.c(8) : LOG_FILE_02 // 定義

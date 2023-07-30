@@ -54,10 +54,8 @@ namespace Charlotte
 		{
 			// -- choose one --
 
-			//new Test0001().Test01(); // ウマ娘キャラ立ち絵
+			new Test0001().Test01(); // ウマ娘キャラ立ち絵
 			//new Test0002().Test01(); // 画像をサイズ調整して壁紙化
-			new Test0003().Test01(); // 開発環境リソース日付調整
-			//new Test0004().Test01(); // 開発環境未使用リソースの検出
 
 			// --
 		}

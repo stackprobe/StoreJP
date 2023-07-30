@@ -92,7 +92,7 @@ typedef unsigned __int64 uint64;
 	E18Œ…‚ÌÅ‘å’l+1
 	E9”{‚µ‚Ä‚à _I64_MAX ‚æ‚è¬‚³‚¢
 */
-#define IMAX_64 1000000000000000000i64
+#define IMAX64 1000000000000000000i64
 
 #define m_01(flag) \
 	(!(flag) ? 0 : 1)

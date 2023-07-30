@@ -20,7 +20,7 @@ namespace Charlotte.Utilities
 		/// </summary>
 		/// <param name="ymd">日付</param>
 		public JapaneseDate(int ymd)
-			: this(SCommon.SimpleDateTime.FromTimeStamp(ymd * 1000000L))
+			: this(SimpleDateTime.FromTimeStamp(ymd * 1000000L))
 		{ }
 
 		/// <summary>
@@ -28,7 +28,7 @@ namespace Charlotte.Utilities
 		/// 時刻は捨てられる。
 		/// </summary>
 		/// <param name="ymd">日時</param>
-		public JapaneseDate(SCommon.SimpleDateTime dateTime)
+		public JapaneseDate(SimpleDateTime dateTime)
 		{
 			this.YMD = (int)Math.Min(2147481231, dateTime.ToTimeStamp() / 1000000L);
 		}
@@ -81,23 +81,22 @@ namespace Charlotte.Utilities
 		{
 			public int FirstYMD;
 			public string Name;
-			public char? Alphabet;
 
-			public EraInfo(int firstYMD, string name, char? alphabet = null)
+			public EraInfo(int firstYMD, string name)
 			{
 				this.FirstYMD = firstYMD;
 				this.Name = name;
-				this.Alphabet = alphabet;
 			}
 		}
 
 		private static EraInfo[] Eras = new EraInfo[]
 		{
-			new EraInfo(18680101, "明治", 'M'),
-			new EraInfo(19120730, "大正", 'T'),
-			new EraInfo(19261225, "昭和", 'S'),
-			new EraInfo(19890108, "平成", 'H'),
-			new EraInfo(20190501, "令和", 'R'),
+			new EraInfo(10101, "西暦"),
+			new EraInfo(18680101, "明治"),
+			new EraInfo(19120730, "大正"),
+			new EraInfo(19261225, "昭和"),
+			new EraInfo(19890108, "平成"),
+			new EraInfo(20190501, "令和"),
 		};
 
 		#endregion
@@ -105,15 +104,7 @@ namespace Charlotte.Utilities
 		private class JYearInfo
 		{
 			public string Gengou;
-			public int Y;
-
-			public string Year
-			{
-				get
-				{
-					return this.Y == 1 ? "元" : "" + this.Y;
-				}
-			}
+			public string Year;
 		}
 
 		private JYearInfo JYear = null;
@@ -129,25 +120,18 @@ namespace Charlotte.Utilities
 		private JYearInfo GetJYear_Main()
 		{
 			int eraIndex = SCommon.GetRange(Eras, v => v.FirstYMD - this.YMD)[1] - 1;
-			string gengou;
-			int y;
 
 			if (eraIndex == -1)
-			{
-				gengou = "西暦";
-				y = this.Y;
-			}
-			else
-			{
-				EraInfo era = Eras[eraIndex];
-				gengou = era.Name;
-				y = this.Y - era.FirstYMD / 10000 + 1;
-			}
+				throw null; // never
+
+			EraInfo era = Eras[eraIndex];
+			int y = this.Y - era.FirstYMD / 10000 + 1;
+			string sy = y == 1 ? "元" : "" + y;
 
 			return new JYearInfo()
 			{
-				Gengou = gengou,
-				Y = y,
+				Gengou = era.Name,
+				Year = sy,
 			};
 		}
 
@@ -163,24 +147,13 @@ namespace Charlotte.Utilities
 		}
 
 		/// <summary>
-		/// 和暦・年(文字列)
+		/// 和暦・年
 		/// </summary>
-		public string SY
+		public string Nen
 		{
 			get
 			{
 				return this.GetJYear().Year;
-			}
-		}
-
-		/// <summary>
-		/// 和暦・年(整数)
-		/// </summary>
-		public int IY
-		{
-			get
-			{
-				return this.GetJYear().Y;
 			}
 		}
 
@@ -192,33 +165,7 @@ namespace Charlotte.Utilities
 		/// <returns>和暦の文字列表現</returns>
 		public override string ToString()
 		{
-			return HanDigToZenDig(this.ToHalfString());
-		}
-
-		/// <summary>
-		/// 和暦の文字列表現を返す。
-		/// 例：令和元年5月25日
-		/// </summary>
-		/// <returns>和暦の文字列表現</returns>
-		public string ToHalfString()
-		{
-			return this.ToString("{0}{1}年{3}月{4}日");
-		}
-
-		/// <summary>
-		/// 和暦の文字列表現を返す。
-		/// 但し年数は整数表記
-		/// 例：令和1年5月25日
-		/// </summary>
-		/// <returns>和暦の文字列表現</returns>
-		public string ToIntYString()
-		{
-			return this.ToString("{0}{2}年{3}月{4}日");
-		}
-
-		public string ToString(string format)
-		{
-			return string.Format(format, this.Gengou, this.SY, this.IY, this.M, this.D);
+			return HanDigToZenDig(string.Format("{0}{1}年{2}月{3}日", this.Gengou, this.Nen, this.M, this.D));
 		}
 
 		// ====
@@ -235,17 +182,10 @@ namespace Charlotte.Utilities
 			if (string.IsNullOrEmpty(str))
 				throw new ArgumentException("和暦変換エラー：空の日付");
 
-			// 正規化
-			str = RemoveBlank(str);
-			str = ZenDigAlpToHanDigAlp(str);
-			str = str.ToUpper();
+			str = ZenDigToHanDig(str);
+			str = str.Replace("元", "" + 1);
 
-			// 元年の解消
-			str = str.Replace("元", "1");
-
-			EraInfo era = Eras
-				.Concat(new EraInfo[] { new EraInfo(10101, "西暦") })
-				.FirstOrDefault(v => str.Contains(v.Name) || (v.Alphabet != null && str.Contains(v.Alphabet.Value)));
+			EraInfo era = Eras.FirstOrDefault(v => str.Contains(v.Name));
 
 			if (era == null)
 				throw new ArgumentException("和暦変換エラー：不明な元号");
@@ -267,41 +207,34 @@ namespace Charlotte.Utilities
 			return new JapaneseDate((era.FirstYMD / 10000 - 1 + y) * 10000 + m * 100 + d);
 		}
 
-		private static string RemoveBlank(string str)
-		{
-			return new string(str.Where(chr => ' ' < chr && chr != '　').ToArray());
-		}
-
-		private static char[] ZEN_DIG_ALP = (SCommon.MBC_DECIMAL + SCommon.MBC_ALPHA_UPPER + SCommon.MBC_ALPHA_LOWER).ToArray();
-		private static char[] HAN_DIG_ALP = (SCommon.DECIMAL + SCommon.ALPHA_UPPER + SCommon.ALPHA_LOWER).ToArray();
-
-		private static string ZenDigAlpToHanDigAlp(string str)
-		{
-			return new string(str.Select(chr =>
-			{
-				for (int index = 0; index < ZEN_DIG_ALP.Length; index++)
-					if (chr == ZEN_DIG_ALP[index])
-						return HAN_DIG_ALP[index];
-
-				return chr;
-			})
-			.ToArray());
-		}
-
 		private static char[] HAN_DIG = SCommon.DECIMAL.ToArray();
 		private static char[] ZEN_DIG = SCommon.MBC_DECIMAL.ToArray();
 
 		private static string HanDigToZenDig(string str)
 		{
-			return new string(str.Select(chr =>
-			{
-				for (int index = 0; index < HAN_DIG.Length; index++)
-					if (chr == HAN_DIG[index])
-						return ZEN_DIG[index];
+			return P_ReplaceChars(str, HAN_DIG, ZEN_DIG);
+		}
 
-				return chr;
-			})
-			.ToArray());
+		private static string ZenDigToHanDig(string str)
+		{
+			return P_ReplaceChars(str, ZEN_DIG, HAN_DIG);
+		}
+
+		private static string P_ReplaceChars(string str, char[] srcChrs, char[] destChrs)
+		{
+			StringBuilder buff = new StringBuilder(str.Length);
+
+			foreach (char f_chr in str)
+			{
+				char chr = f_chr;
+
+				for (int index = 0; index < srcChrs.Length; index++)
+					if (chr == srcChrs[index])
+						chr = destChrs[index];
+
+				buff.Append(chr);
+			}
+			return buff.ToString();
 		}
 	}
 }

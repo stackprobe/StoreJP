@@ -39,6 +39,7 @@
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Numerics" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -49,6 +50,7 @@
   <ItemGroup>
     <Compile Include="Common.cs" />
     <Compile Include="Commons\ArgsReader.cs" />
+    <Compile Include="Commons\SimpleDateTime.cs" />
     <Compile Include="Drawings\D2Point.cs" />
     <Compile Include="Drawings\D2Size.cs" />
     <Compile Include="Drawings\D3Color.cs" />
@@ -85,6 +87,7 @@
     <Compile Include="Tests\Test0012.cs" />
     <Compile Include="Tests\Test0013.cs" />
     <Compile Include="Tests\Test0017.cs" />
+    <Compile Include="Tests\Test0018.cs" />
     <Compile Include="Utilities\Adler32.cs" />
     <Compile Include="Utilities\AESCipher.cs" />
     <Compile Include="Utilities\Anchorable.cs" />
@@ -97,6 +100,7 @@
     <Compile Include="Utilities\HTTPClient.cs" />
     <Compile Include="Utilities\JapaneseDate.cs" />
     <Compile Include="Utilities\JsonNode.cs" />
+    <Compile Include="Utilities\MillerRabinTester.cs" />
     <Compile Include="Utilities\PrimeTester.cs" />
     <Compile Include="Utilities\RingCipher.cs" />
     <Compile Include="Utilities\RingCipherFile.cs" />

@@ -121,7 +121,7 @@ namespace Charlotte.Utilities
 			}
 			else if (SCommon.EqualsIgnoreCase(name, "Date"))
 			{
-				this.Inner.Date = SCommon.SimpleDateTime.FromTimeStamp(long.Parse(value)).ToDateTime();
+				this.Inner.Date = SimpleDateTime.FromTimeStamp(long.Parse(value)).ToDateTime();
 			}
 			else if (SCommon.EqualsIgnoreCase(name, "Host"))
 			{
@@ -129,7 +129,7 @@ namespace Charlotte.Utilities
 			}
 			else if (SCommon.EqualsIgnoreCase(name, "If-Modified-Since"))
 			{
-				this.Inner.IfModifiedSince = SCommon.SimpleDateTime.FromTimeStamp(long.Parse(value)).ToDateTime();
+				this.Inner.IfModifiedSince = SimpleDateTime.FromTimeStamp(long.Parse(value)).ToDateTime();
 			}
 			else if (SCommon.EqualsIgnoreCase(name, "Range"))
 			{
