@@ -1706,7 +1706,15 @@ namespace Charlotte.Commons
 
 		public class Hex
 		{
-			public static Hex I = new Hex();
+			private static Lazy<Hex> _i = new Lazy<Hex>(() => new Hex());
+
+			public static Hex I
+			{
+				get
+				{
+					return _i.Value;
+				}
+			}
 
 			private int[] HexChar2Value;
 

@@ -192,6 +192,11 @@ namespace Charlotte.Commons
 			return this.GetInt(maxval - minval + 1) + minval;
 		}
 
+		public long GetLongRange(long minval, long maxval)
+		{
+			return this.GetLong(maxval - minval + 1) + minval;
+		}
+
 		public bool GetBoolean()
 		{
 			return this.GetBit() != 0;
