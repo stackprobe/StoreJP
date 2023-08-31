@@ -121,6 +121,14 @@ namespace Charlotte.Commons
 
 		public DateTime ToDateTime()
 		{
+			// memo: @ 2023.8.30
+			// DateTime に変換できる日時は 1/1/1 00:00:00 ～ 9999/12/31 23:59:59
+			// それ以外は例外を投げる。
+
+			// memo: @ 2023.8.31
+			// 下記のように new DateTime(2023, 8, 31, 11, 19, 30) と作成すると Kind は DateTimeKind.Unspecified になる。
+			// これは .ToLocalTime(), .ToUniversalTime() によって日時変更可能でこのとき Kind はそれぞれ DateTimeKind.Local, DateTimeKind.Utc になる。
+
 			return new DateTime(this.Year, this.Month, this.Day, this.Hour, this.Minute, this.Second);
 		}
 

@@ -16,6 +16,44 @@ namespace Charlotte.Tests
 	{
 		public void Test01()
 		{
+			for (int n = -30000; n <= 30000; n++)
+			{
+				bool ans1 = Test01_a1(n);
+				bool ans2 = Test01_a2(n);
+
+				if (ans1 != ans2)
+					throw null;
+			}
+			ProcMain.WriteLog("OK! (TEST-0018-01)");
+		}
+
+		private bool Test01_a1(int n)
+		{
+			return MillerRabinTester.IsProbablePrime(n);
+		}
+
+		private bool Test01_a2(int n)
+		{
+			if (n < 2)
+				return false;
+
+			if (n == 2)
+				return true;
+
+			if (n % 2 == 0)
+				return false;
+
+			for (int d = 3; d * d <= n; d += 2)
+				if (n % d == 0)
+					return false;
+
+			return true;
+		}
+
+		// ====
+
+		public void Test02()
+		{
 			string RES_BIG_PRIMES = @"
 
 345171570260461450792131917359
@@ -119,21 +157,27 @@ namespace Charlotte.Tests
 				.Select(line => BigInteger.Parse(line))
 				.ToArray();
 
+			ProcMain.WriteLog("TEST-0018-02");
+
 			foreach (BigInteger bigPrime in bigPrimes)
 				if (!MillerRabinTester.IsProbablePrime(bigPrime))
 					throw new Exception(bigPrime.ToString());
+
+			ProcMain.WriteLog("OK");
 
 			foreach (BigInteger bigPrime in bigPrimes)
 				foreach (int smallNumber in Enumerable.Range(2, 300))
 					if (MillerRabinTester.IsProbablePrime(bigPrime * smallNumber))
 						throw new Exception(bigPrime + ", " + smallNumber);
 
+			ProcMain.WriteLog("OK");
+
 			foreach (BigInteger bigPrime1 in bigPrimes)
 				foreach (BigInteger bigPrime2 in bigPrimes)
 					if (MillerRabinTester.IsProbablePrime(bigPrime1 * bigPrime2))
 						throw new Exception(bigPrime1 + ", " + bigPrime2);
 
-			Console.WriteLine("OK! (TEST-0018-01)");
+			ProcMain.WriteLog("OK!");
 		}
 	}
 }

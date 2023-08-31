@@ -31,9 +31,9 @@ namespace Charlotte.Games.SActions.Walls
 
 		private void AddItems()
 		{
-			AddItem("Test0001", () => new SAWall_Test0001());
-			AddItem("Test0002", () => new SAWall_Test0002());
-			AddItem("Test0003", () => new SAWall_Test0003());
+			AddItem("OnePicture01", () => new SAWall_OnePicture01());
+			AddItem("OnePicture02", () => new SAWall_OnePicture02());
+			AddItem("OnePicture03", () => new SAWall_OnePicture03());
 		}
 
 		private void AddItem(string name, Func<SAWall> creator)

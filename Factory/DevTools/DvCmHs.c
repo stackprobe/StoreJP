@@ -160,6 +160,9 @@ static void ShowAllCommonsDirs(void)
 	foreach (CommonsDirNames, name, index)
 	{
 		ShowCommonsDirs(name, getList(CommonsDirsList, index));
+
+		if (ExistDiffOverall) // ‘Šˆá‚ğ”­Œ©‚µ‚½‚ç‚±‚±‚Å’†~‚·‚éB
+			break;
 	}
 
 	if (ExistDiffOverall)

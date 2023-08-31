@@ -8,7 +8,7 @@ namespace Charlotte.Utilities
 	public static class PrimeTester
 	{
 		/// <summary>
-		/// 1～2桁の素数
+		/// 100以下の素数
 		/// </summary>
 		private static readonly int[] PNN = new int[] { 2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97 };
 
@@ -33,7 +33,7 @@ namespace Charlotte.Utilities
 		/// <returns>判定結果</returns>
 		public static bool IsPrime(ulong n)
 		{
-			if (n < 100)
+			if (n <= 100)
 				return PNN.Contains((int)n);
 
 			if (n % 2 == 0)

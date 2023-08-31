@@ -41,12 +41,12 @@ namespace Charlotte.WebServices
 		/// リクエストのボディの最大サイズ_バイト数
 		/// -1 == INFINITE
 		/// </summary>
-		public static long BodySizeMax = 300000000; // 300 MB
+		public static long BodySizeMax = 512000000; // 512 MB
 
 		public IEnumerable<int> RecvRequest()
 		{
 			this.Channel.SessionTimeoutTime = TimeoutMillisToDateTime(RequestTimeoutMillis);
-			this.Channel.P_IdleTimeoutMillis = FirstLineTimeoutMillis;
+			this.Channel.CurrIdleTimeoutMillis = FirstLineTimeoutMillis;
 
 			this.Channel.FirstLineRecving = true;
 
@@ -63,7 +63,7 @@ namespace Charlotte.WebServices
 				this.HTTPVersion = tokens[2];
 			}
 
-			this.Channel.P_IdleTimeoutMillis = IdleTimeoutMillis;
+			this.Channel.CurrIdleTimeoutMillis = IdleTimeoutMillis;
 
 			foreach (var relay in this.RecvHeader())
 				yield return relay;
@@ -92,26 +92,26 @@ namespace Charlotte.WebServices
 		{
 			byte[] src = Encoding.ASCII.GetBytes(path);
 
-			using (MemoryStream dest = new MemoryStream())
+			using (MemoryStream writer = new MemoryStream())
 			{
 				for (int index = 0; index < src.Length; index++)
 				{
 					if (src[index] == 0x25) // ? '%'
 					{
-						dest.WriteByte((byte)Convert.ToInt32(Encoding.ASCII.GetString(P_GetBytesRange(src, index + 1, 2)), 16));
+						writer.WriteByte((byte)Convert.ToInt32(Encoding.ASCII.GetString(P_GetBytesRange(src, index + 1, 2)), 16));
 						index += 2;
 					}
 					else if (src[index] == 0x2b) // ? '+'
 					{
-						dest.WriteByte(0x20); // ' '
+						writer.WriteByte(0x20); // ' '
 					}
 					else
 					{
-						dest.WriteByte(src[index]);
+						writer.WriteByte(src[index]);
 					}
 				}
 
-				byte[] bytes = dest.ToArray();
+				byte[] bytes = writer.ToArray();
 
 				if (!SockCommon.P_UTF8Check.Check(bytes))
 					throw new Exception("URL is not Japanese UTF-8");
@@ -137,44 +137,48 @@ namespace Charlotte.WebServices
 		private const byte CR = 0x0d;
 		private const byte LF = 0x0a;
 
-		private readonly byte[] CRLF = new byte[] { CR, LF };
+		private static readonly byte[] CRLF = new byte[] { CR, LF };
 
 		private IEnumerable<int> RecvLine(Action<string> a_return)
 		{
 			const int LINE_LEN_MAX = 128 * 1024;
 
-			List<byte> buff = new List<byte>(LINE_LEN_MAX);
-
-			for (; ; )
+			using (MemoryStream writer = new MemoryStream())
 			{
-				byte[] chrs = null;
+				int wroteSize = 0;
 
-				foreach (var relay in this.Channel.Recv(1, ret => chrs = ret))
-					yield return relay;
+				for (; ; )
+				{
+					byte[] chrs = null;
 
-				byte chr = chrs[0];
+					foreach (var relay in this.Channel.Recv(1, ret => chrs = ret))
+						yield return relay;
 
-				if (chr == CR)
-					continue;
+					byte chr = chrs[0];
 
-				if (chr == LF)
-					break;
+					if (chr == CR)
+						continue;
 
-				if (LINE_LEN_MAX < buff.Count)
-					throw new OverflowException("Received line is too long");
+					if (chr == LF)
+						break;
 
-				if (chr < 0x20 || 0x7e < chr) // ? not ASCII -> SPACE
-					chr = 0x20;
+					if (LINE_LEN_MAX < wroteSize)
+						throw new OverflowException("Received line is too long");
 
-				buff.Add(chr);
+					if (chr < 0x20 || 0x7e < chr) // ? not ASCII -> SPACE
+						chr = 0x20;
+
+					writer.WriteByte(chr);
+					wroteSize++;
+				}
+				a_return(Encoding.ASCII.GetString(writer.ToArray()));
 			}
-			a_return(Encoding.ASCII.GetString(buff.ToArray()));
 		}
 
 		private IEnumerable<int> RecvHeader()
 		{
-			const int HEADERS_LEN_MAX = 128 * 1024 + 65536;
 			const int WEIGHT = 256;
+			const int HEADERS_LEN_MAX = 128 * 1024 + 256 * WEIGHT;
 
 			int roughHeaderLength = 0;
 

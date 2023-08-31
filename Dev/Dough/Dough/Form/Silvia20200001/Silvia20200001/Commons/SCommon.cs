@@ -1635,25 +1635,33 @@ namespace Charlotte.Commons
 			}
 		}
 
-		public static RandomUnit CRandom = new RandomUnit(new P_CSPRandomNumberGenerator());
+		private static Lazy<RandomUnit> _crandom = new Lazy<RandomUnit>(() => new CSPRNGRandomUnit());
 
-		private class P_CSPRandomNumberGenerator : RandomUnit.IRandomNumberGenerator
+		public static RandomUnit CRandom
 		{
-			private RandomNumberGenerator Rng = new RNGCryptoServiceProvider();
+			get
+			{
+				return _crandom.Value;
+			}
+		}
+
+		private class CSPRNGRandomUnit : RandomUnit, IDisposable
+		{
+			private RandomNumberGenerator CSPRNG = new RNGCryptoServiceProvider();
 			private byte[] Cache = new byte[4096];
 
-			public byte[] GetBlock()
+			protected override byte[] GetBlock()
 			{
-				this.Rng.GetBytes(this.Cache);
+				this.CSPRNG.GetBytes(this.Cache);
 				return this.Cache;
 			}
 
 			public void Dispose()
 			{
-				if (this.Rng != null)
+				if (this.CSPRNG != null)
 				{
-					this.Rng.Dispose();
-					this.Rng = null;
+					this.CSPRNG.Dispose();
+					this.CSPRNG = null;
 				}
 			}
 		}
@@ -2099,6 +2107,86 @@ namespace Charlotte.Commons
 		// GetEnclosed   --> 4 -- { 開始タグの開始位置, 開始タグの終了位置(*), 終了タグの開始位置, 終了タグの終了位置(*) }
 		//
 		// * 終了位置 == 最後の文字の次の位置
+
+#if false // ParseEnclosed 使用例
+
+		private static string RES_TEXT = @"
+
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Example of Strong Tag</title>
+	</head>
+	<body>
+		<h1>Emphasizing Text</h1>
+		<p>There is an <strong>important</strong> section in this document.</p>
+		<p>In this paragraph, we will use a word that we want to <strong>emphasize</strong>.</p>
+		<p>Finally, we have something to say <strong>loud and clear</strong>.</p>
+	</body>
+</html>
+
+";
+
+		public void Test01()
+		{
+			string text = RES_TEXT;
+
+			for (; ; )
+			{
+				string[] encl = SCommon.ParseEnclosed(text, "<strong>", "</strong>"); // 次の <strong> ... </strong> を探す。
+
+				if (encl == null) // ? 見つからなかった。-> 検索終了
+					break;
+
+				string innerText = encl[2]; // <strong> と </strong> の間の部分
+
+				Console.WriteLine("innerText = \"" + innerText + "\"");
+
+				text = encl[4]; // </strong> 以降
+			}
+		}
+
+#endif
+
+#if false // GetEnclosed 使用例
+
+		private static string RES_TEXT = @"
+
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Example of Strong Tag</title>
+	</head>
+	<body>
+		<h1>Emphasizing Text</h1>
+		<p>There is an <strong>important</strong> section in this document.</p>
+		<p>In this paragraph, we will use a word that we want to <strong>emphasize</strong>.</p>
+		<p>Finally, we have something to say <strong>loud and clear</strong>.</p>
+	</body>
+</html>
+
+";
+
+		public void Test01()
+		{
+			string text = RES_TEXT;
+
+			for (int index = 0; ; )
+			{
+				int[] encl = SCommon.GetEnclosed(text, index, "<strong>", "</strong>"); // 次の <strong> ... </strong> を探す。
+
+				if (encl == null) // ? 見つからなかった。-> 検索終了
+					break;
+
+				string innerText = text.Substring(encl[1], encl[2] - encl[1]); // <strong> と </strong> の間の部分
+
+				Console.WriteLine("innerText = \"" + innerText + "\"");
+
+				index = encl[3]; // </strong> 以降
+			}
+		}
+
+#endif
 
 		public static string[] ParseIsland(string text, string singleTag, bool ignoreCase = false)
 		{
@@ -2586,7 +2674,7 @@ namespace Charlotte.Commons
 		#region TimeStampToSec
 
 		/// <summary>
-		/// 日時を 1/1/1 00:00:00 からの経過秒数に変換およびその逆を行います。
+		/// 日時を 1/1/1 00:00:00 からの経過秒数に変換およびその逆を行う。
 		/// 日時のフォーマット
 		/// -- YMMDDhhmmss
 		/// -- YYMMDDhhmmss
@@ -2610,12 +2698,20 @@ namespace Charlotte.Commons
 			private const long TIME_STAMP_MIN = 10101000000L;
 			private const long TIME_STAMP_MAX = 9223372031231235959L;
 
-			private const long SEC_MIN = 0L;
+			private const long DEFAULT_SEC = 62135596800L; // == 1970/1/1 00:00:00
 
+			/// <summary>
+			/// 日時を 1/1/1 00:00:00 からの経過秒数に変換する。
+			/// 不正な日時の場合：
+			/// -- 日が月の日数より大きく 31 以下である場合 == 翌月扱い。
+			/// -- それ以外の不正な日時(範囲外の日時も含む) == 1970/1/1 00:00:00 に対応する経過秒数を返す。
+			/// </summary>
+			/// <param name="timeStamp">日時</param>
+			/// <returns>経過秒数</returns>
 			public static long ToSec(long timeStamp)
 			{
 				if (timeStamp < TIME_STAMP_MIN || TIME_STAMP_MAX < timeStamp)
-					return SEC_MIN;
+					return DEFAULT_SEC;
 
 				int s = (int)(timeStamp % 100);
 				timeStamp /= 100;
@@ -2636,7 +2732,7 @@ namespace Charlotte.Commons
 					i < 0 || 59 < i ||
 					s < 0 || 59 < s
 					)
-					return SEC_MIN;
+					return DEFAULT_SEC;
 
 				if (m <= 2)
 					y--;
@@ -2675,9 +2771,17 @@ namespace Charlotte.Commons
 				return ret;
 			}
 
+			/// <summary>
+			/// 1/1/1 00:00:00 からの経過秒数を日時に変換する。
+			/// 不正な経過秒数の場合：
+			/// -- 最小の日時(1/1/1 00:00:00)より前の日時に対応する経過秒数(つまり負の値) == 最小の日時(1/1/1 00:00:00)を返す。
+			/// -- 最大の日時(922337203/12/31 23:59:59)より後の日時に対応する経過秒数 == 最大の日時(922337203/12/31 23:59:59)を返す。
+			/// </summary>
+			/// <param name="sec">経過秒数</param>
+			/// <returns>日時</returns>
 			public static long ToTimeStamp(long sec)
 			{
-				if (sec < SEC_MIN)
+				if (sec < 0L)
 					return TIME_STAMP_MIN;
 
 				int s = (int)(sec % 60);
@@ -2743,6 +2847,38 @@ namespace Charlotte.Commons
 					h * 10000L +
 					i * 100L +
 					s;
+			}
+		}
+
+		public static class TimeStampToSecHelper
+		{
+			public static bool IsFairTimeStamp(long timeStamp)
+			{
+				return TimeStampToSec.ToTimeStamp(TimeStampToSec.ToSec(timeStamp)) == timeStamp;
+			}
+
+			public static bool IsFairSec(long sec)
+			{
+				return TimeStampToSec.ToSec(TimeStampToSec.ToTimeStamp(sec)) == sec;
+			}
+
+			public static int GetDaysOfMonth(int y, int m)
+			{
+				int d = 30;
+
+				for (int c = 1; 0 <= c; c--)
+				{
+					long timeStamp =
+						y * 10000000000L +
+						m * 100000000L +
+						d * 1000000L;
+
+					if (IsFairTimeStamp(timeStamp))
+						d += c;
+					else
+						d--;
+				}
+				return d;
 			}
 		}
 

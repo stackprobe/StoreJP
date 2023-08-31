@@ -16,7 +16,7 @@ namespace Charlotte.WebServices
 		public HTTPBodyOutputStream BodyOutputStream;
 		public SockServer Parent;
 
-		// <---- prm
+		// <---- need init
 
 		public bool FirstLineRecving = false;
 
@@ -42,7 +42,7 @@ namespace Charlotte.WebServices
 		/// 無通信タイムアウト_ミリ秒
 		/// -1 == INFINITE
 		/// </summary>
-		public int P_IdleTimeoutMillis = -1;
+		public int CurrIdleTimeoutMillis = -1;
 
 		private IEnumerable<int> PreRecvSend()
 		{
@@ -97,7 +97,7 @@ namespace Charlotte.WebServices
 
 					if (recvSize <= 0)
 					{
-						throw new Exception("受信失敗(切断)");
+						throw new Exception("受信切断");
 					}
 					if (10.0 <= (DateTime.Now - startedTime).TotalSeconds) // 長い無通信時間をモニタする。
 					{
@@ -108,12 +108,12 @@ namespace Charlotte.WebServices
 				}
 				catch (SocketException ex)
 				{
-					if (ex.ErrorCode != 10035)
+					if (ex.ErrorCode != SockCommon.WSAEWOULDBLOCK)
 					{
-						throw new Exception("受信失敗(" + ex.ErrorCode + ")", ex);
+						throw new Exception("受信切断(" + ex.ErrorCode + ")", ex);
 					}
 				}
-				if (this.P_IdleTimeoutMillis != -1 && this.P_IdleTimeoutMillis < (DateTime.Now - startedTime).TotalMilliseconds)
+				if (this.CurrIdleTimeoutMillis != -1 && this.CurrIdleTimeoutMillis < (DateTime.Now - startedTime).TotalMilliseconds)
 				{
 					throw new RecvIdleTimeoutException();
 				}
@@ -169,7 +169,7 @@ namespace Charlotte.WebServices
 
 					if (sentSize <= 0)
 					{
-						throw new Exception("送信失敗(切断)");
+						throw new Exception("送信切断");
 					}
 					if (10.0 <= (DateTime.Now - startedTime).TotalSeconds) // 長い無通信時間をモニタする。
 					{
@@ -180,12 +180,12 @@ namespace Charlotte.WebServices
 				}
 				catch (SocketException ex)
 				{
-					if (ex.ErrorCode != 10035)
+					if (ex.ErrorCode != SockCommon.WSAEWOULDBLOCK)
 					{
-						throw new Exception("送信失敗(" + ex.ErrorCode + ")", ex);
+						throw new Exception("送信切断(" + ex.ErrorCode + ")", ex);
 					}
 				}
-				if (this.P_IdleTimeoutMillis != -1 && this.P_IdleTimeoutMillis < (DateTime.Now - startedTime).TotalMilliseconds)
+				if (this.CurrIdleTimeoutMillis != -1 && this.CurrIdleTimeoutMillis < (DateTime.Now - startedTime).TotalMilliseconds)
 				{
 					throw new Exception("送信の無通信タイムアウト");
 				}

@@ -7,7 +7,7 @@ using Charlotte.Commons;
 namespace Charlotte.Tests
 {
 	/// <summary>
-	/// SCommon.GetEnclosed 使用例
+	/// SCommon.GetEnclosed
 	/// </summary>
 	public class Test0018
 	{

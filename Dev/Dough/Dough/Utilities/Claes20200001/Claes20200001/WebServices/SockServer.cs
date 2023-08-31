@@ -33,7 +33,7 @@ namespace Charlotte.WebServices
 		/// </summary>
 		public Func<bool> Interlude = () => !Console.KeyAvailable;
 
-		// <---- prm
+		// <---- init if needed
 
 		/// <summary>
 		/// サーバーロジック
@@ -89,7 +89,7 @@ namespace Charlotte.WebServices
 							waitMillis++;
 						}
 
-						for (int c = 0; c < 30; c++) // HACK: 繰り返し回数_適当
+						for (int c = 0; c < 30; c++) // rough limit
 						{
 							Socket handler = this.Channels.Count < this.ConnectMax ? this.Connect(listener) : null;
 
@@ -104,7 +104,7 @@ namespace Charlotte.WebServices
 								SockChannel channel = new SockChannel();
 
 								channel.Handler = handler;
-								handler = null; // もう使わない。
+								handler = null;
 								channel.Handler.Blocking = false;
 								channel.ID = SockCommon.IDIssuer.Issue();
 								channel.Connected = SCommon.Supplier(this.E_Connected(channel));
@@ -116,7 +116,7 @@ namespace Charlotte.WebServices
 								SockCommon.WriteLog(SockCommon.ErrorLevel_e.INFO, "通信開始 " + channel.ID);
 							}
 						}
-						for (int index = this.Channels.Count - 1; 0 <= index; index--)
+						for (int index = 0; index < this.Channels.Count; )
 						{
 							SockChannel channel = this.Channels[index];
 							int size;
@@ -149,6 +149,10 @@ namespace Charlotte.WebServices
 
 								SockCommon.TimeWaitMonitor.I.Disconnect();
 							}
+							else
+							{
+								index++;
+							}
 						}
 
 						SockCommon.ShuffleP4(this.Channels); // 順序による何らかの偏りを懸念...
@@ -180,7 +184,7 @@ namespace Charlotte.WebServices
 			}
 			catch (SocketException ex)
 			{
-				if (ex.ErrorCode != 10035)
+				if (ex.ErrorCode != SockCommon.WSAEWOULDBLOCK)
 				{
 					throw new Exception("接続失敗(" + ex.ErrorCode + ")", ex);
 				}

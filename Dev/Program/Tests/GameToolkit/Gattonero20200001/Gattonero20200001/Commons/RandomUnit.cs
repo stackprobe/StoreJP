@@ -5,28 +5,9 @@ using System.Text;
 
 namespace Charlotte.Commons
 {
-	public class RandomUnit : IDisposable
+	public abstract class RandomUnit
 	{
-		public interface IRandomNumberGenerator : IDisposable
-		{
-			byte[] GetBlock();
-		}
-
-		private IRandomNumberGenerator Rng;
-
-		public RandomUnit(IRandomNumberGenerator rng)
-		{
-			this.Rng = rng;
-		}
-
-		public void Dispose()
-		{
-			if (this.Rng != null)
-			{
-				this.Rng.Dispose();
-				this.Rng = null;
-			}
-		}
+		protected abstract byte[] GetBlock();
 
 		private byte[] Cache = SCommon.EMPTY_BYTES;
 		private int NextRdIndex = 0;
@@ -35,7 +16,15 @@ namespace Charlotte.Commons
 		{
 			if (this.Cache.Length <= this.NextRdIndex)
 			{
-				this.Cache = this.Rng.GetBlock();
+				byte[] block = this.GetBlock();
+
+				if (
+					block == null ||
+					block.Length == 0
+					)
+					throw new Exception("Bad block");
+
+				this.Cache = block;
 				this.NextRdIndex = 0;
 			}
 			return this.Cache[this.NextRdIndex++];

@@ -18,9 +18,10 @@
 	ees /lss
 	ees /lss /e
 
-	DvCmHs
-	DvUtHs
-	DvBtHs
+	DvHs
+	DvCmHs      <-- DvHs
+	DvUtHs      <-- DvHs
+	DvBtHs      <-- DvHs
 
 	rr
 	collout

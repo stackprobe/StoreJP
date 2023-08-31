@@ -36,7 +36,7 @@ namespace Charlotte.Games.SActions
 		/// フィールド名
 		/// -- リソースフォルダ直下の Field フォルダ直下の *.txt の「拡張子を除く」ローカルファイル名
 		/// </summary>
-		public string Name;
+		public string Name { get; private set; }
 
 		/// <summary>
 		/// フィールドを生成する。
@@ -54,7 +54,7 @@ namespace Charlotte.Games.SActions
 
 		#region Load, Save
 
-		private const string FIELD_RES_FILE_PREFIX = "Field\\SA\\";
+		private const string FIELD_RES_FILE_PREFIX = "Public\\SA\\Field\\";
 		private const string FIELD_RES_FILE_SUFFIX = ".txt";
 
 		public void Load()

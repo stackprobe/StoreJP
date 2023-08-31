@@ -25,7 +25,7 @@ namespace Charlotte.Games.TActions
 			}
 		}
 
-		private const string WORLD_RES_FILE = "Field\\TA\\00_World.csv";
+		private const string WORLD_RES_FILE = "Public\\TA\\Field\\00_World.csv";
 
 		private string[][] Rows;
 		private Dictionary<string, I2Point> Name2Position = SCommon.CreateDictionary<I2Point>();

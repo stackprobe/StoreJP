@@ -9,6 +9,8 @@ namespace Charlotte.WebServices
 {
 	public static class SockCommon
 	{
+		public const int WSAEWOULDBLOCK = 10035;
+
 		public enum ErrorLevel_e
 		{
 			INFO = 1,
@@ -55,11 +57,10 @@ namespace Charlotte.WebServices
 			}
 		}
 
+		private static int NBProcMillisLimit = 50;
+
 		public static T NB<T>(string title, Func<T> routine)
 		{
-#if true
-			return routine();
-#else
 			DateTime startedTime = DateTime.Now;
 			try
 			{
@@ -67,14 +68,14 @@ namespace Charlotte.WebServices
 			}
 			finally
 			{
-				double millis = (DateTime.Now - startedTime).TotalMilliseconds;
+				int millis = (int)(DateTime.Now - startedTime).TotalMilliseconds;
 
-				const double MILLIS_LIMIT = 50.0;
-
-				if (MILLIS_LIMIT < millis)
-					SockCommon.WriteLog(SockCommon.ErrorLevel_e.WARNING, "NB-処理に掛かった時間 " + title + " " + Thread.CurrentThread.ManagedThreadId + " " + millis.ToString("F0"));
+				if (NBProcMillisLimit < millis)
+				{
+					SockCommon.WriteLog(SockCommon.ErrorLevel_e.WARNING, "NB-Process Took Time. " + title + " " + Thread.CurrentThread.ManagedThreadId + " " + millis + " (" + NBProcMillisLimit + ")");
+					NBProcMillisLimit++;
+				}
 			}
-#endif
 		}
 
 		public static UTF8Check P_UTF8Check = new UTF8Check();

@@ -1,24 +1,4 @@
-﻿Field
-	-> Directory
-Field\SA
-	-> Directory
-Field\SA\00_World.csv
-	-> File 1970/01/01 (木) 00:00:00 / 1970/01/01 (木) 00:00:00 / 63
-Field\SA\Test0001.txt
-	-> File 1970/01/01 (木) 00:00:00 / 1970/01/01 (木) 00:00:00 / 36,469
-Field\SA\Test0002.txt
-	-> File 1970/01/01 (木) 00:00:00 / 1970/01/01 (木) 00:00:00 / 60,437
-Field\SA\Test0003.txt
-	-> File 1970/01/01 (木) 00:00:00 / 1970/01/01 (木) 00:00:00 / 20,801
-Field\SA\Test0004.txt
-	-> File 1970/01/01 (木) 00:00:00 / 1970/01/01 (木) 00:00:00 / 6,537
-Field\SA\Test0005.txt
-	-> File 1970/01/01 (木) 00:00:00 / 1970/01/01 (木) 00:00:00 / 22,016
-Field\SA\Test0006.txt
-	-> File 1970/01/01 (木) 00:00:00 / 1970/01/01 (木) 00:00:00 / 86,705
-Field\SA\_memo.txt
-	-> File 1970/01/01 (木) 00:00:00 / 1970/01/01 (木) 00:00:00 / 303
-Font
+﻿Font
 	-> Directory
 Font\K Gothic
 	-> Directory
@@ -210,6 +190,28 @@ Picture\出所不詳\地面.png
 	-> File 1970/01/01 (木) 00:00:00 / 1970/01/01 (木) 00:00:00 / 353
 Picture\出所不詳\石壁.png
 	-> File 1970/01/01 (木) 00:00:00 / 1970/01/01 (木) 00:00:00 / 942
+Public
+	-> Directory
+Public\SA
+	-> Directory
+Public\SA\Field
+	-> Directory
+Public\SA\Field\00_World.csv
+	-> File 1970/01/01 (木) 00:00:00 / 1970/01/01 (木) 00:00:00 / 63
+Public\SA\Field\Test0001.txt
+	-> File 1970/01/01 (木) 00:00:00 / 1970/01/01 (木) 00:00:00 / 36,473
+Public\SA\Field\Test0002.txt
+	-> File 1970/01/01 (木) 00:00:00 / 1970/01/01 (木) 00:00:00 / 60,441
+Public\SA\Field\Test0003.txt
+	-> File 1970/01/01 (木) 00:00:00 / 1970/01/01 (木) 00:00:00 / 20,805
+Public\SA\Field\Test0004.txt
+	-> File 1970/01/01 (木) 00:00:00 / 1970/01/01 (木) 00:00:00 / 6,541
+Public\SA\Field\Test0005.txt
+	-> File 1970/01/01 (木) 00:00:00 / 1970/01/01 (木) 00:00:00 / 22,020
+Public\SA\Field\Test0006.txt
+	-> File 1970/01/01 (木) 00:00:00 / 1970/01/01 (木) 00:00:00 / 86,709
+Public\SA\Field\_memo.txt
+	-> File 1970/01/01 (木) 00:00:00 / 1970/01/01 (木) 00:00:00 / 303
 SoundEffect
 	-> Directory
 SoundEffect\ユーフルカ

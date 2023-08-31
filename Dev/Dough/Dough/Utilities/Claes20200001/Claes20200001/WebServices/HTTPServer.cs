@@ -7,6 +7,65 @@ namespace Charlotte.WebServices
 {
 	public class HTTPServer : SockServer
 	{
+		// 使用例・呼び出しテンプレート
+#if false
+		public void Test01()
+		{
+			HTTPServer hs = new HTTPServer()
+			{
+				PortNo = 80,
+				Backlog = 300,
+				ConnectMax = 100,
+				Interlude = () => !Console.KeyAvailable,
+				HTTPConnected = channel =>
+				{
+					// ★サンプル -- 要削除
+					{
+						// 以下は安全に表示可能な文字列であることが保証される。
+						// -- FirstLine == ASCII && not-null
+						// -- Method == ASCII && not-null
+						// -- PathQuery == SJIS && not-null
+						// -- HTTPVersion == ASCII && not-null
+						// -- HeaderPairs == (全てのキーと値について) ASCII && not-null
+						// ---- ASCII == [\u0020-\u007e]*
+						// ---- SJIS == ToJString(, true, false, false, true)
+
+						Console.WriteLine(channel.FirstLine);
+						Console.WriteLine(channel.Method);
+						Console.WriteLine(channel.PathQuery);
+						Console.WriteLine(channel.HTTPVersion);
+						Console.WriteLine(string.Join(", ", channel.HeaderPairs.Select(pair => pair[0] + "=" + pair[1])));
+						Console.WriteLine(BitConverter.ToString(channel.Body.ToByteArray()));
+
+						channel.ResStatus = 200;
+						channel.ResHeaderPairs.Add(new string[] { "Content-Type", "text/plain; charset=US-ASCII" });
+						channel.ResHeaderPairs.Add(new string[] { "X-Header-001", "123" });
+						channel.ResHeaderPairs.Add(new string[] { "X-Header-002", "456" });
+						channel.ResHeaderPairs.Add(new string[] { "X-Header-003", "789" });
+						channel.ResBody = new byte[][] { Encoding.ASCII.GetBytes("Hello, Happy World!") };
+						channel.ResBodyLength = -1L;
+					}
+				},
+			};
+
+			SockChannel.ThreadTimeoutMillis = 100;
+
+			HTTPServer.KeepAliveTimeoutMillis = 5000;
+
+			HTTPServerChannel.RequestTimeoutMillis = -1;
+			HTTPServerChannel.ResponseTimeoutMillis = -1;
+			HTTPServerChannel.FirstLineTimeoutMillis = 2000;
+			HTTPServerChannel.IdleTimeoutMillis = 180000; // 3 min
+			HTTPServerChannel.BodySizeMax = 512000000; // 512 MB
+
+			SockCommon.TimeWaitMonitor.CTR_ROT_SEC = 60;
+			SockCommon.TimeWaitMonitor.COUNTER_NUM = 5;
+			SockCommon.TimeWaitMonitor.COUNT_LIMIT = 10000;
+
+			hs.Run();
+		}
+#endif
+
 		/// <summary>
 		/// サーバーロジック
 		/// 引数：
@@ -14,7 +73,7 @@ namespace Charlotte.WebServices
 		/// </summary>
 		public Action<HTTPServerChannel> HTTPConnected = channel => { };
 
-		// <---- prm
+		// <---- init if needed
 
 		public HTTPServer()
 		{

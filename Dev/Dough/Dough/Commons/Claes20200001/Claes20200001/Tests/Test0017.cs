@@ -7,7 +7,7 @@ using Charlotte.Commons;
 namespace Charlotte.Tests
 {
 	/// <summary>
-	/// SCommon.ParseEnclosed 使用例
+	/// SCommon.ParseEnclosed
 	/// </summary>
 	public class Test0017
 	{

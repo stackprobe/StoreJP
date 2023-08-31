@@ -12,9 +12,6 @@ namespace Charlotte.Tests
 	/// </summary>
 	public class Test0005
 	{
-		/// <summary>
-		/// ★サーバー実行テンプレート
-		/// </summary>
 		public void Test01()
 		{
 			ProcMain.WriteLog("TEST-0005-01");
@@ -27,21 +24,17 @@ namespace Charlotte.Tests
 				Interlude = () => !Console.KeyAvailable,
 				HTTPConnected = channel =>
 				{
-					// ★サンプル -- 要削除
-					{
-						ProcMain.WriteLog(channel.FirstLine);
-						ProcMain.WriteLog(channel.Method);
-						ProcMain.WriteLog(channel.PathQuery);
-						ProcMain.WriteLog(channel.HTTPVersion);
-						ProcMain.WriteLog(string.Join(", ", channel.HeaderPairs.Select(pair => pair[0] + "=" + pair[1])));
-						ProcMain.WriteLog(SCommon.Hex.I.GetString(channel.Body.ToByteArray()));
+					ProcMain.WriteLog(channel.FirstLine);
+					ProcMain.WriteLog(channel.Method);
+					ProcMain.WriteLog(channel.PathQuery);
+					ProcMain.WriteLog(channel.HTTPVersion);
+					ProcMain.WriteLog(string.Join(", ", channel.HeaderPairs.Select(pair => pair[0] + "=" + pair[1])));
+					ProcMain.WriteLog(SCommon.Hex.I.GetString(channel.Body.ToByteArray()));
 
-						channel.ResStatus = 200;
-						channel.ResHeaderPairs.Add(new string[] { "Content-Type", "text/plain; charset=US-ASCII" });
-						channel.ResHeaderPairs.Add(new string[] { "X-ABC", "123" });
-						channel.ResBody = new byte[][] { Encoding.ASCII.GetBytes("Hello, Happy World!") };
-						channel.ResBodyLength = -1L;
-					}
+					channel.ResStatus = 200;
+					channel.ResHeaderPairs.Add(new string[] { "Content-Type", "text/plain; charset=US-ASCII" });
+					channel.ResBody = new byte[][] { Encoding.ASCII.GetBytes("Hello, Happy World!") };
+					channel.ResBodyLength = -1L;
 				},
 			};
 
@@ -53,13 +46,11 @@ namespace Charlotte.Tests
 			HTTPServerChannel.ResponseTimeoutMillis = -1;
 			HTTPServerChannel.FirstLineTimeoutMillis = 2000;
 			HTTPServerChannel.IdleTimeoutMillis = 180000; // 3 min
-			HTTPServerChannel.BodySizeMax = 300000000; // 300 MB
+			HTTPServerChannel.BodySizeMax = 512000000; // 512 MB
 
 			SockCommon.TimeWaitMonitor.CTR_ROT_SEC = 60;
 			SockCommon.TimeWaitMonitor.COUNTER_NUM = 5;
 			SockCommon.TimeWaitMonitor.COUNT_LIMIT = 10000;
-
-			// サーバーの設定ここまで
 
 			hs.Run();
 		}

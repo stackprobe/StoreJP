@@ -15,18 +15,14 @@ namespace Charlotte.Tests
 	{
 		public void Test01()
 		{
-			Test01a("https://www.google.com");
-			Test01a("https://www.youtube.com");
-			Test01a("https://www.amazon.co.jp");
+			Test01_a("https://www.google.com");
+			Test01_a("https://www.youtube.com");
+			Test01_a("https://www.amazon.co.jp");
 
 			ProcMain.WriteLog("OK! (TEST-0004-01)");
 		}
 
-		/// <summary>
-		/// ★クライアント実行テンプレート
-		/// </summary>
-		/// <param name="url"></param>
-		private void Test01a(string url)
+		private void Test01_a(string url)
 		{
 			using (WorkingDir wd = new WorkingDir())
 			{
@@ -34,16 +30,16 @@ namespace Charlotte.Tests
 
 				HTTPClient hc = new HTTPClient(url)
 				{
-					ConnectTimeoutMillis = 60000, // 1 min
+					ConnectTimeoutMillis = 43200000, // 12 hour
 					TimeoutMillis = 86400000, // 1 day
 					IdleTimeoutMillis = 180000, // 3 min
-					ResBodySizeMax = 100000000000000, // 100 TB
+					ResBodySizeMax = 8000000000000000, // 8 PB (8000 TB)
 					ResFile = resFile,
 				};
 
 				hc.Get();
 
-				File.Copy(resFile, SCommon.NextOutputPath() + ".txt"); // ★サンプル -- 要削除
+				File.Copy(resFile, SCommon.NextOutputPath() + ".txt");
 			}
 		}
 	}

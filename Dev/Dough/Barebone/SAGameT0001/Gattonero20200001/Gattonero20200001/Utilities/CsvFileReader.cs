@@ -9,10 +9,11 @@ namespace Charlotte.Utilities
 {
 	public class CsvFileReader : IDisposable
 	{
-		public const char DELIMITER_COMMA = ',';
-		public const char DELIMITER_TAB = '\t';
+		public const char DELIMITER_COMMA = ','; // for .csv
+		public const char DELIMITER_SPACE = ' '; // for .ssv
+		public const char DELIMITER_TAB = '\t';  // for .tsv
 
-		private char Delimiter = DELIMITER_COMMA;
+		private char Delimiter;
 		private StreamReader Reader;
 
 		public CsvFileReader(string file)
@@ -24,14 +25,9 @@ namespace Charlotte.Utilities
 		{ }
 
 		public CsvFileReader(string file, Encoding encoding, char delimiter)
-			: this(new StreamReader(file, encoding))
 		{
 			this.Delimiter = delimiter;
-		}
-
-		public CsvFileReader(StreamReader reader_binding)
-		{
-			this.Reader = reader_binding;
+			this.Reader = new StreamReader(file, encoding);
 		}
 
 		private int LastChar;

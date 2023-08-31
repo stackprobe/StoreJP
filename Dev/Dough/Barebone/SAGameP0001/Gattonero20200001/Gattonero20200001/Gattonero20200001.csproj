@@ -135,9 +135,9 @@
     <Compile Include="Games\SActions\Tiles\SATile_石壁.cs" />
     <Compile Include="Games\SActions\Walls\SAWall.cs" />
     <Compile Include="Games\SActions\Walls\SAWallCatalog.cs" />
-    <Compile Include="Games\SActions\Walls\SAWall_Test0001.cs" />
-    <Compile Include="Games\SActions\Walls\SAWall_Test0002.cs" />
-    <Compile Include="Games\SActions\Walls\SAWall_Test0003.cs" />
+    <Compile Include="Games\SActions\Walls\SAWall_OnePicture01.cs" />
+    <Compile Include="Games\SActions\Walls\SAWall_OnePicture02.cs" />
+    <Compile Include="Games\SActions\Walls\SAWall_OnePicture03.cs" />
     <Compile Include="Games\ContinueMenu.cs" />
     <Compile Include="Games\SaveMenu.cs" />
     <Compile Include="GUICommons\GUICommon.cs" />

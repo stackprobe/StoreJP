@@ -1,20 +1,4 @@
-﻿Field
-	-> Directory
-Field\TA
-	-> Directory
-Field\TA\00_World.csv
-	-> File 1970/01/01 (木) 00:00:00 / 1970/01/01 (木) 00:00:00 / 41
-Field\TA\Test0001.txt
-	-> File 1970/01/01 (木) 00:00:00 / 1970/01/01 (木) 00:00:00 / 32,251
-Field\TA\Test0002.txt
-	-> File 1970/01/01 (木) 00:00:00 / 1970/01/01 (木) 00:00:00 / 32,235
-Field\TA\Test0003.txt
-	-> File 1970/01/01 (木) 00:00:00 / 1970/01/01 (木) 00:00:00 / 6,953
-Field\TA\Test0004.txt
-	-> File 1970/01/01 (木) 00:00:00 / 1970/01/01 (木) 00:00:00 / 19,465
-Field\TA\_memo.txt
-	-> File 1970/01/01 (木) 00:00:00 / 1970/01/01 (木) 00:00:00 / 303
-Font
+﻿Font
 	-> Directory
 Font\K Gothic
 	-> Directory
@@ -482,6 +466,24 @@ Picture\点睛集積\チルノ\thv8_cirno2_0502.png
 	-> File 1970/01/01 (木) 00:00:00 / 1970/01/01 (木) 00:00:00 / 575
 Picture\点睛集積\チルノ\thv8_cirno2_0503.png
 	-> File 1970/01/01 (木) 00:00:00 / 1970/01/01 (木) 00:00:00 / 559
+Public
+	-> Directory
+Public\TA
+	-> Directory
+Public\TA\Field
+	-> Directory
+Public\TA\Field\00_World.csv
+	-> File 1970/01/01 (木) 00:00:00 / 1970/01/01 (木) 00:00:00 / 41
+Public\TA\Field\Test0001.txt
+	-> File 1970/01/01 (木) 00:00:00 / 1970/01/01 (木) 00:00:00 / 32,251
+Public\TA\Field\Test0002.txt
+	-> File 1970/01/01 (木) 00:00:00 / 1970/01/01 (木) 00:00:00 / 32,235
+Public\TA\Field\Test0003.txt
+	-> File 1970/01/01 (木) 00:00:00 / 1970/01/01 (木) 00:00:00 / 6,953
+Public\TA\Field\Test0004.txt
+	-> File 1970/01/01 (木) 00:00:00 / 1970/01/01 (木) 00:00:00 / 19,465
+Public\TA\Field\_memo.txt
+	-> File 1970/01/01 (木) 00:00:00 / 1970/01/01 (木) 00:00:00 / 303
 SoundEffect
 	-> Directory
 SoundEffect\ユーフルカ

@@ -23,6 +23,7 @@ namespace Charlotte.Utilities
 		{
 			if (
 				rawKey == null ||
+				!IsAllowedRawKeyLength(rawKey.Length) ||
 				iv == null ||
 				iv.Length != 16
 				)
@@ -31,6 +32,14 @@ namespace Charlotte.Utilities
 			this.Transformer = new AESCipher(rawKey);
 			this.InitializationVector = iv;
 			this.Reset();
+		}
+
+		private static bool IsAllowedRawKeyLength(int length)
+		{
+			return
+				length == 16 ||
+				length == 24 ||
+				length == 32;
 		}
 
 		public void Reset()

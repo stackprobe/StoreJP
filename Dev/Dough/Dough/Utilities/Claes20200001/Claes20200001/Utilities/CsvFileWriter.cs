@@ -9,10 +9,11 @@ namespace Charlotte.Utilities
 {
 	public class CsvFileWriter : IDisposable
 	{
-		public const char DELIMITER_COMMA = ',';
-		public const char DELIMITER_TAB = '\t';
+		public const char DELIMITER_COMMA = ','; // for .csv
+		public const char DELIMITER_SPACE = ' '; // for .ssv
+		public const char DELIMITER_TAB = '\t';  // for .tsv
 
-		private char Delimiter = DELIMITER_COMMA;
+		private char Delimiter;
 		private StreamWriter Writer;
 
 		public CsvFileWriter(string file, bool append = false)
@@ -24,14 +25,9 @@ namespace Charlotte.Utilities
 		{ }
 
 		public CsvFileWriter(string file, bool append, Encoding encoding, char delimiter)
-			: this(new StreamWriter(file, append, encoding))
 		{
 			this.Delimiter = delimiter;
-		}
-
-		public CsvFileWriter(StreamWriter writer_binding)
-		{
-			this.Writer = writer_binding;
+			this.Writer = new StreamWriter(file, append, encoding);
 		}
 
 		/// <summary>
@@ -39,7 +35,7 @@ namespace Charlotte.Utilities
 		/// </summary>
 		private bool FirstCell = true;
 
-		public void WriteCell(string cell, bool forceQuote = false)
+		public void WriteCell(string cell)
 		{
 			if (this.FirstCell)
 				this.FirstCell = false;
@@ -47,7 +43,6 @@ namespace Charlotte.Utilities
 				this.Writer.Write(this.Delimiter);
 
 			if (
-				forceQuote ||
 				cell.Contains('"') ||
 				cell.Contains('\n') ||
 				cell.Contains(this.Delimiter)

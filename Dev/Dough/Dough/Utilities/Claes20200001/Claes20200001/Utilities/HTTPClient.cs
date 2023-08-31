@@ -12,6 +12,30 @@ namespace Charlotte.Utilities
 {
 	public class HTTPClient
 	{
+		// 使用例・呼び出しテンプレート
+#if false
+		public void Test01()
+		{
+			using (WorkingDir wd = new WorkingDir())
+			{
+				string resFile = wd.MakePath();
+
+				HTTPClient hc = new HTTPClient("https://www.google.com")
+				{
+					ConnectTimeoutMillis = 43200000, // 12 hour
+					TimeoutMillis = 86400000, // 1 day
+					IdleTimeoutMillis = 180000, // 3 min
+					ResBodySizeMax = 8000000000000000, // 8 PB (8000 TB)
+					ResFile = resFile,
+				};
+
+				hc.Get();
+
+				File.Copy(resFile, SCommon.NextOutputPath() + ".txt"); // ★サンプル -- 要削除
+			}
+		}
+#endif
+
 		private HttpWebRequest Inner;
 
 		public HTTPClient(string url)
@@ -41,7 +65,7 @@ namespace Charlotte.Utilities
 		/// <summary>
 		/// 接続を試みてから応答ヘッダを受信し終えるまでのタイムアウト_ミリ秒
 		/// </summary>
-		public int ConnectTimeoutMillis = 60000; // 1 min
+		public int ConnectTimeoutMillis = 43200000; // 12 hour
 
 		/// <summary>
 		/// 接続を試みてから全て送受信し終えるまでのタイムアウト_ミリ秒
@@ -56,7 +80,7 @@ namespace Charlotte.Utilities
 		/// <summary>
 		/// 応答ボディ最大サイズ_バイト数
 		/// </summary>
-		public long ResBodySizeMax = 100000000000000; // 100 TB
+		public long ResBodySizeMax = 8000000000000000; // 8 PB (8000 TB)
 
 		/// <summary>
 		/// 応答ボディ出力ファイル

@@ -36,7 +36,7 @@ namespace Charlotte.Games.TActions
 		/// フィールド名
 		/// -- リソースフォルダ直下の Field フォルダ直下の *.txt の「拡張子を除く」ローカルファイル名
 		/// </summary>
-		public string Name;
+		public string Name { get; private set; }
 
 		/// <summary>
 		/// フィールドを生成する。
@@ -54,7 +54,7 @@ namespace Charlotte.Games.TActions
 
 		#region Load, Save
 
-		private const string FIELD_RES_FILE_PREFIX = "Field\\TA\\";
+		private const string FIELD_RES_FILE_PREFIX = "Public\\TA\\Field\\";
 		private const string FIELD_RES_FILE_SUFFIX = ".txt";
 
 		public void Load()
@@ -105,7 +105,7 @@ namespace Charlotte.Games.TActions
 			this.MusicProperty = SCommon.RefElement(lines, c++, TAMusicCatalog.I.GetNames()[0]);
 			//this.Dummy_990001 = SCommon.RefElement(lines, c++, "Default");
 			//this.Dummy_990002 = SCommon.RefElement(lines, c++, "Default");
-			//this.Dummy_990003 = SCommon.RefElement(lines, c++, "Default");		
+			//this.Dummy_990003 = SCommon.RefElement(lines, c++, "Default");
 		}
 
 		public void Save()

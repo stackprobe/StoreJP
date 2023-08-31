@@ -173,5 +173,21 @@ namespace Charlotte.Tests
 
 			return timeStamp;
 		}
+
+		public void Test03()
+		{
+			for (int y = 1; y <= 9999; y++)
+			{
+				for (int m = 1; m <= 12; m++)
+				{
+					int dom1 = SCommon.TimeStampToSecHelper.GetDaysOfMonth(y, m);
+					int dom2 = DateTime.DaysInMonth(y, m);
+
+					if (dom1 != dom2)
+						throw null;
+				}
+			}
+			Console.WriteLine("OK! (TEST-0006-03)");
+		}
 	}
 }

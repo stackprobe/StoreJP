@@ -4018,7 +4018,8 @@ C:\Factory\DevTools\DvCmHs.c(50) : GetDirMD5 // ŠÖ”
 C:\Factory\DevTools\DvCmHs.c(66) : OneDiffFileSetToFoundFileList // ŠÖ”
 C:\Factory\DevTools\DvCmHs.c(116) : ShowCommonsDirs // ŠÖ”
 C:\Factory\DevTools\DvCmHs.c(155) : ShowAllCommonsDirs // ŠÖ”
-C:\Factory\DevTools\DvCmHs.c(173) : main // ŠÖ”
+C:\Factory\DevTools\DvCmHs.c(176) : main // ŠÖ”
+C:\Factory\DevTools\DvHs.c(3) : main // ŠÖ”
 C:\Factory\DevTools\DvUtHs.c(10) : UtilitiesFileNames // •Ï”–”‚ÍéŒ¾
 C:\Factory\DevTools\DvUtHs.c(11) : UtilitiesFilesList // •Ï”–”‚ÍéŒ¾
 C:\Factory\DevTools\DvUtHs.c(12) : ExistDiffOverall // •Ï”–”‚ÍéŒ¾

@@ -65,12 +65,14 @@ namespace Charlotte
 			//new Test0003().Test03(); // RandomUnit
 			//new Test0003().Test04(); // RandomUnit
 			//new Test0003().Test05(); // RandomUnit
-			new Test0003().Test06(); // RandomUnit
+			//new Test0003().Test06(); // RandomUnit
+			//new Test0003().Test07(); // RandomUnit
 			//new Test0004().Test01(); // SCommon.Serializer
 			//new Test0005().Test01(); // SCommon.Hex
 			//new Test0005().Test02(); // SCommon.Hex
 			//new Test0006().Test01(); // SCommon.TimeStampToSec
 			//new Test0006().Test02(); // SCommon.TimeStampToSec
+			//new Test0006().Test03(); // SCommon.TimeStampToSec
 			//new Test0007().Test01(); // WorkingDir
 			//new Test0008().Test01(); // SCommon.GetIndex
 			//new Test0008().Test02(); // SCommon.GetIndex
@@ -85,13 +87,16 @@ namespace Charlotte
 			//new Test0010().Test04(); // SCommon.Tokenize
 			//new Test0011().Test01(); // SCommon.Generate
 			//new Test0012().Test01(); // SimpleDateTime
+			new Test0012().Test02(); // SimpleDateTime
 			//new Test0013().Test01(); // SCommon.GetSJISBytes
 			//new Test0014().Test01(); // SCommon.Batch
 			//new Test0015().Test01(); // SCommon.Compress, SCommon.Decompress
 			//new Test0015().Test02(); // SCommon.CompressFile, SCommon.DecompressFile
 			//new Test0016().Test01(); // SCommon.ToCreatablePath
-			//new Test0017().Test01(); // SCommon.ParseEnclosed 使用例
-			//new Test0018().Test01(); // SCommon.GetEnclosed 使用例
+			//new Test0017().Test01(); // SCommon.ParseEnclosed
+			//new Test0018().Test01(); // SCommon.GetEnclosed
+			//new Test0019().Test01(); // ArgsReader
+			//new Test0019().Test02(); // ArgsReader
 
 			// --
 		}

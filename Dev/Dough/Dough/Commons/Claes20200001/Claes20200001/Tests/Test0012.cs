@@ -46,5 +46,14 @@ namespace Charlotte.Tests
 
 			Console.WriteLine("done! (TEST-0012-01)");
 		}
+
+		public void Test02()
+		{
+			SimpleDateTime.FromTimeStamp(10101000000).ToDateTime();
+			SimpleDateTime.FromTimeStamp(99991231235959).ToDateTime();
+			SCommon.ToThrowPrint(() => SimpleDateTime.FromTimeStamp(100001231235959).ToDateTime());
+
+			Console.WriteLine("OK! (TEST-0012-02)");
+		}
 	}
 }

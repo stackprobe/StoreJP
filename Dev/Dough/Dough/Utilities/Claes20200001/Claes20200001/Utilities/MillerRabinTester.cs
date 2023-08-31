@@ -10,7 +10,7 @@ namespace Charlotte.Utilities
 	public static class MillerRabinTester
 	{
 		/// <summary>
-		/// 1～2桁の素数
+		/// 100以下の素数
 		/// </summary>
 		private static readonly int[] PNN = new int[] { 2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97 };
 
@@ -43,7 +43,7 @@ namespace Charlotte.Utilities
 			if (k < 1 || SCommon.IMAX < k)
 				throw new ArgumentException("Bad k");
 
-			if (n < 100)
+			if (n <= 100)
 				return PNN.Contains((int)n);
 
 			if (n.IsEven)

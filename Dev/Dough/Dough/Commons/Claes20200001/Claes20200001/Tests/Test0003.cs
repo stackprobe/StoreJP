@@ -19,8 +19,7 @@ namespace Charlotte.Tests
 				if (testcnt % 100 == 0) Console.WriteLine("TEST-0003-01, " + testcnt); // cout
 
 				bool[] table = SCommon.Generate(SCommon.CRandom.GetRange(1, 300), () => SCommon.CRandom.GetBoolean()).ToArray();
-
-				RandomUnit ru = new RandomUnit(new RandomNumberGenerator_01() { Table = table });
+				RandomUnit ru = new RandomUnit_01() { Table = table };
 
 				for (int c = 0; c < 100; c++)
 				{
@@ -36,17 +35,17 @@ namespace Charlotte.Tests
 			Console.WriteLine("OK!");
 		}
 
-		private class RandomNumberGenerator_01 : RandomUnit.IRandomNumberGenerator
+		private class RandomUnit_01 : RandomUnit
 		{
 			public bool[] Table;
 			private int RdIndex = 0;
 
-			public byte[] GetBlock()
+			protected override byte[] GetBlock()
 			{
 				return this.NextBytes();
 			}
 
-			private byte[] NextBytes()
+			public byte[] NextBytes()
 			{
 				int size = SCommon.CRandom.GetRange(1, 100);
 				byte[] data = new byte[size];
@@ -72,11 +71,6 @@ namespace Charlotte.Tests
 			{
 				return this.Table[this.RdIndex++ % this.Table.Length];
 			}
-
-			public void Dispose()
-			{
-				// noop
-			}
 		}
 
 		public void Test02()
@@ -86,8 +80,7 @@ namespace Charlotte.Tests
 				if (testcnt % 1000 == 0) Console.WriteLine("TEST-0003-02, " + testcnt); // cout
 
 				uint[] table = SCommon.Generate(SCommon.CRandom.GetRange(1, 1000), () => SCommon.CRandom.GetUInt32()).ToArray();
-
-				RandomUnit ru = new RandomUnit(new RandomNumberGenerator_02() { Table = table });
+				RandomUnit ru = new RandomUnit_02() { Table = table };
 
 				//for (int c = 0; c < 100; c++)
 				foreach (uint value in table)
@@ -97,11 +90,11 @@ namespace Charlotte.Tests
 			Console.WriteLine("OK!");
 		}
 
-		private class RandomNumberGenerator_02 : RandomUnit.IRandomNumberGenerator
+		private class RandomUnit_02 : RandomUnit
 		{
 			public uint[] Table;
 
-			public byte[] GetBlock()
+			protected override byte[] GetBlock()
 			{
 				return SCommon.Join(this.Table.Select(value => new byte[]
 				{
@@ -112,11 +105,6 @@ namespace Charlotte.Tests
 				})
 				.ToArray());
 			}
-
-			public void Dispose()
-			{
-				// noop
-			}
 		}
 
 		public void Test03()
@@ -126,8 +114,7 @@ namespace Charlotte.Tests
 				if (testcnt % 1000 == 0) Console.WriteLine("TEST-0003-03, " + testcnt); // cout
 
 				ulong[] table = SCommon.Generate(SCommon.CRandom.GetRange(1, 1000), () => SCommon.CRandom.GetULong64()).ToArray();
-
-				RandomUnit ru = new RandomUnit(new RandomNumberGenerator_03() { Table = table });
+				RandomUnit ru = new RandomUnit_03() { Table = table };
 
 				//for (int c = 0; c < 100; c++)
 				foreach (ulong value in table)
@@ -137,11 +124,11 @@ namespace Charlotte.Tests
 			Console.WriteLine("OK!");
 		}
 
-		private class RandomNumberGenerator_03 : RandomUnit.IRandomNumberGenerator
+		private class RandomUnit_03 : RandomUnit
 		{
 			public ulong[] Table;
 
-			public byte[] GetBlock()
+			protected override byte[] GetBlock()
 			{
 				return SCommon.Join(this.Table.Select(value => new byte[]
 				{
@@ -155,11 +142,6 @@ namespace Charlotte.Tests
 					(byte)((value >> 56) & 0xff),
 				})
 				.ToArray());
-			}
-
-			public void Dispose()
-			{
-				// noop
 			}
 		}
 
@@ -202,7 +184,7 @@ namespace Charlotte.Tests
 
 		public void Test06()
 		{
-			RandomUnit ru = new RandomUnit(new RandomNumberGenerator_05());
+			RandomUnit ru = new RandomUnit_06();
 
 			if (0x000000a5U != ru.GetUInt8()) throw null;
 			if (0x0000a5a5U != ru.GetUInt16()) throw null;
@@ -217,17 +199,56 @@ namespace Charlotte.Tests
 			Console.WriteLine("OK! (TEST-0003-06)");
 		}
 
-		private class RandomNumberGenerator_05 : RandomUnit.IRandomNumberGenerator
+		private class RandomUnit_06 : RandomUnit
 		{
-			public byte[] GetBlock()
+			protected override byte[] GetBlock()
 			{
 				return new byte[] { 0xa5 };
 			}
+		}
 
-			public void Dispose()
+		public void Test07()
+		{
+			Test07_a(100, 900);
+			Test07_a(10000, 90000);
+			Test07_a(1000000, 9000000);
+			Test07_a(100000000, 900000000);
+			Test07_a(10000000000, 90000000000);
+			Test07_a(1000000000000, 9000000000000);
+			Test07_a(100000000000000, 900000000000000);
+			Test07_a(10000000000000000, 90000000000000000);
+			Test07_a(1000000000000000000, 9000000000000000000);
+
+			Test07_a(-900, -100);
+			Test07_a(-90000, -10000);
+			Test07_a(-9000000, -1000000);
+			Test07_a(-900000000, -100000000);
+			Test07_a(-90000000000, -10000000000);
+			Test07_a(-9000000000000, -1000000000000);
+			Test07_a(-900000000000000, -100000000000000);
+			Test07_a(-90000000000000000, -10000000000000000);
+			Test07_a(-9000000000000000000, -1000000000000000000);
+
+			Console.WriteLine("OK! (TEST-0003-07)");
+		}
+
+		private void Test07_a(long minval, long maxval)
+		{
+			for (int c = 0; c < 1000000; c++)
 			{
-				// noop
+				long value = SCommon.CRandom.GetLongRange(minval, maxval);
+
+				if (value < minval)
+					throw null;
+
+				if (value > maxval)
+					throw null;
+
+				// 最初のうちちょっとだけ表示する。
+				if (c < 10)
+					Console.WriteLine(minval + ", " + maxval + " ==> " + value); // cout
 			}
+			Console.WriteLine("OK");
 		}
 	}
 }

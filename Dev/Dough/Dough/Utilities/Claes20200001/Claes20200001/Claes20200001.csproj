@@ -62,6 +62,7 @@
     <Compile Include="Drawings\I4Color.cs" />
     <Compile Include="Drawings\I4Rect.cs" />
     <Compile Include="Drawings\P4Poly.cs" />
+    <Compile Include="Tests\Test0007.cs" />
     <Compile Include="Tests\Test0014.cs" />
     <Compile Include="Tests\Test0015.cs" />
     <Compile Include="Tests\Test0016.cs" />
@@ -80,7 +81,6 @@
     <Compile Include="Tests\Test0004.cs" />
     <Compile Include="Tests\Test0005.cs" />
     <Compile Include="Tests\Test0006.cs" />
-    <Compile Include="Tests\Test0007.cs" />
     <Compile Include="Tests\Test0008.cs" />
     <Compile Include="Tests\Test0009.cs" />
     <Compile Include="Tests\Test0011.cs" />
@@ -98,7 +98,6 @@
     <Compile Include="Utilities\CsvFileWriter.cs" />
     <Compile Include="Utilities\CtrCipher.cs" />
     <Compile Include="Utilities\HTTPClient.cs" />
-    <Compile Include="Utilities\JapaneseDate.cs" />
     <Compile Include="Utilities\JsonNode.cs" />
     <Compile Include="Utilities\MillerRabinTester.cs" />
     <Compile Include="Utilities\PrimeTester.cs" />

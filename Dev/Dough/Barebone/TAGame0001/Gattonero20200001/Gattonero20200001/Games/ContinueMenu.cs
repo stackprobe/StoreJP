@@ -4,7 +4,6 @@ using System.Linq;
 using System.Text;
 using Charlotte.Drawings;
 using Charlotte.GameCommons;
-using Charlotte.Games.TActions;
 
 namespace Charlotte.Games
 {
@@ -43,13 +42,12 @@ namespace Charlotte.Games
 					break;
 
 				GameSetting.SaveDataSlot slot = GameSetting.SaveDataSlots[menu.SelectedIndex];
+				string serializedString = slot.SerializedString;
 
-				if (slot.SerializedString == "") // ? セーブデータ無し
-					continue;
-
-				return slot.SerializedString;
+				if (serializedString != "") // ? セーブデータ有り
+					return serializedString;
 			}
-			return "";
+			return ""; // キャンセル
 		}
 	}
 }
