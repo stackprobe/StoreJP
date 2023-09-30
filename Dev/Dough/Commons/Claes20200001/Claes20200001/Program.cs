@@ -87,7 +87,7 @@ namespace Charlotte
 			//new Test0010().Test04(); // SCommon.Tokenize
 			//new Test0011().Test01(); // SCommon.Generate
 			//new Test0012().Test01(); // SimpleDateTime
-			new Test0012().Test02(); // SimpleDateTime
+			//new Test0012().Test02(); // SimpleDateTime
 			//new Test0013().Test01(); // SCommon.GetSJISBytes
 			//new Test0014().Test01(); // SCommon.Batch
 			//new Test0015().Test01(); // SCommon.Compress, SCommon.Decompress
@@ -97,6 +97,8 @@ namespace Charlotte
 			//new Test0018().Test01(); // SCommon.GetEnclosed
 			//new Test0019().Test01(); // ArgsReader
 			//new Test0019().Test02(); // ArgsReader
+			//new Test0020().Test01(); // SCommon.UTF8Conv.ToJString
+			new Test0020().Test02(); // SCommon.UTF8Conv.ToJString
 
 			// --
 		}

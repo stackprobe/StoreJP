@@ -309,11 +309,12 @@ static void Build(char *module, uint remCount) // remCount: 0 == 無効
 
 	exemanifest = addExt(strx(exefile), "manifest");
 
-//	if (!existFile(source))
-//		source = addLine(source, "pp"); // .c -> .cpp
-
+	errorCase(m_isEmpty(module)); // 2bs
 	errorCase(mbs_strchr(module, '\\')); // ローカル名であること。
 	errorCase(strchr(module, ' ')); // コマンドラインに渡すため、空白を含まないこと。
+
+//	if (!existFile(source))
+//		source = addLine(source, "pp"); // .c -> .cpp
 
 	if (existFile(solution))
 	{
@@ -323,19 +324,27 @@ static void Build(char *module, uint remCount) // remCount: 0 == 無効
 
 			cout("solution file's Visual Studio Editon (Year) == %u\n", vsEditionYear);
 
-			if (vsEditionYear == 2010 || vsEditionYear == 2019)
+			if (vsEditionYear == 2010)
 			{
-				char *slncacheFile = addExt(strx(solution), "cache");
+				char *slnOutExeFile = combine_xx(combine_xc(changeExt(module, ""), "bin\\Release"), changeExt(module, "exe"));
+				char *sln_cacheFile = addExt(strx(solution), "cache");
 				int successful;
+
+				cout("slnOutExeFile: %s\n", slnOutExeFile);
+				cout("sln_cacheFile: %s\n", sln_cacheFile);
 
 				execute_x(xcout("MSBUILD " MSBUILDOPTIONS " %s", solution));
 
 				successful = lastSystemRet == 0;
 
-				if (existFile(slncacheFile))
+				if (!existFile(slnOutExeFile))
 				{
-					cout("%s\n", slncacheFile);
-					cout("sln.cacheファイルが存在します。ビルドは失敗しました。\n");
+					cout("出力実行ファイルが存在しません。ビルドは失敗しました。\n");
+					successful = 0;
+				}
+				if (existFile(sln_cacheFile))
+				{
+					cout("sln.cache ファイルが存在します。ビルドは失敗しました。\n");
 					successful = 0;
 				}
 				if (successful) // ? ビルド成功
@@ -347,7 +356,8 @@ static void Build(char *module, uint remCount) // remCount: 0 == 無効
 					cout("%s\\%s", c_getCwd(), solution);
 					termination(1);
 				}
-				memFree(slncacheFile);
+				memFree(slnOutExeFile);
+				memFree(sln_cacheFile);
 
 				BuiltSlnCount++;
 				addElement(BuiltLines, (uint)xcout("BUILT_SLN %s", solution));

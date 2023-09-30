@@ -62,6 +62,41 @@ namespace Charlotte.Utilities
 		/// </summary>
 		public string WordValue;
 
+		/// <summary>
+		/// 配列読み取り用
+		/// </summary>
+		/// <param name="index">インデックス</param>
+		/// <returns>要素</returns>
+		public JsonNode this[int index]
+		{
+			get
+			{
+				return this.Array[index];
+			}
+		}
+
+		/// <summary>
+		/// マップ読み取り用
+		/// </summary>
+		/// <param name="name">名前</param>
+		/// <returns>要素</returns>
+		public JsonNode this[string name]
+		{
+			get
+			{
+				int index;
+
+				for (index = 0; index < this.Map.Count; index++)
+					if (SCommon.EqualsIgnoreCase(this.Map[index].Name, name))
+						break;
+
+				if (index == this.Map.Count)
+					throw new Exception("no [" + name + "]");
+
+				return this.Map[index].Value;
+			}
+		}
+
 		public static JsonNode LoadFromFile(string file)
 		{
 			return LoadFromFile(file, GetFileEncoding(file));

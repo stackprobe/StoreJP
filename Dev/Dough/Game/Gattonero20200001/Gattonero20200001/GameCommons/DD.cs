@@ -56,14 +56,21 @@ namespace Charlotte.GameCommons
 			}
 			else
 			{
-				getter = resPath => DU.LzData.PhysicalFile(Path.Combine(@"..\..\..\..\Resource", resPath)); // $$_CheersToGimlet: throw new Exception("no Resource.dat");
+				string resourceParentDir = ProcMain.SelfDir;
+				string resourceDir;
+
+				for (; ; )
+				{
+					resourceDir = Path.Combine(resourceParentDir, "Resource");
+
+					if (Directory.Exists(resourceDir))
+						break;
+
+					resourceParentDir = SCommon.ToParentPath(resourceParentDir);
+				}
+				getter = resPath => DU.LzData.PhysicalFile(Path.Combine(resourceDir, resPath));
 			}
 			return getter;
-		}
-
-		public static void SetResFileData(string resPath, byte[] data)
-		{
-			File.WriteAllBytes(Path.Combine(@"..\..\..\..\Resource", resPath), data); // $$_CheersToGimlet: throw new Exception("Cannot write to file");
 		}
 
 		#region Draw

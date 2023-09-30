@@ -11,6 +11,9 @@ namespace Charlotte.Utilities
 
 		public ArraySpliceSequencer(T[] src)
 		{
+			if (src == null)
+				throw new ArgumentException("Bad src");
+
 			this.Source = src;
 		}
 

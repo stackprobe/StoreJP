@@ -107,11 +107,15 @@ autoList_t *ls(char *dir)
 			if (antiSubversion)
 			{
 				// .svn ÇÕ SVN_ASP_DOT_NET_HACK=1 Ç≈ _svn Ç…Ç»ÇÈÇÁÇµÇ¢ÅB
-				if ((!_stricmp(name, ".svn") || !_stricmp(name, "_svn")) && lastFindData.attrib & _A_SUBDIR)
+				if ((!_stricmp(name, ".svn") || !_stricmp(name, "_svn")) && lastFindData.attrib & _A_SUBDIR) // svn
 				{
 					continue;
 				}
-				if (!_stricmp(getExt(name), "rum") && lastFindData.attrib & _A_SUBDIR)
+				if (!_stricmp(name, ".git") && lastFindData.attrib & _A_SUBDIR) // git
+				{
+					continue;
+				}
+				if (!_stricmp(getExt(name), "rum") && lastFindData.attrib & _A_SUBDIR) // rum
 				{
 					continue;
 				}

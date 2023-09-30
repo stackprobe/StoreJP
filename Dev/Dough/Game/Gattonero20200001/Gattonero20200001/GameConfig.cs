@@ -18,8 +18,7 @@ namespace Charlotte
 
 		public static string[] FontFileResPaths = new string[]
 		{
-			@"Font\K Gothic\K Gothic.ttf",
-			@"Font\木漏れ日ゴシック\komorebi-gothic.ttf",
+			//@"General\Dummy.ttf",
 		};
 
 		public static Color LibbonBackColor = Color.FromArgb(96, 24, 48);

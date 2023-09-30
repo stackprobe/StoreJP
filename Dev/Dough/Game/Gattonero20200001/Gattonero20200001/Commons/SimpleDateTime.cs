@@ -126,7 +126,7 @@ namespace Charlotte.Commons
 			// それ以外は例外を投げる。
 
 			// memo: @ 2023.8.31
-			// 下記のように new DateTime(2023, 8, 31, 11, 19, 30) と作成すると Kind は DateTimeKind.Unspecified になる。
+			// 以下のように new DateTime(2023, 8, 31, 11, 19, 30) と作成すると Kind は DateTimeKind.Unspecified になる。
 			// これは .ToLocalTime(), .ToUniversalTime() によって日時変更可能でこのとき Kind はそれぞれ DateTimeKind.Local, DateTimeKind.Utc になる。
 
 			return new DateTime(this.Year, this.Month, this.Day, this.Hour, this.Minute, this.Second);

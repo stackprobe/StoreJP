@@ -1,70 +1,18 @@
-﻿Font
-	-> Directory
-Font\K Gothic
-	-> Directory
-Font\K Gothic\K Gothic.ttf
-	-> File 1970/01/01 (木) 00:00:00 / 1970/01/01 (木) 00:00:00 / 9,673,764
-Font\K Gothic\_source.txt
-	-> File 1970/01/01 (木) 00:00:00 / 1970/01/01 (木) 00:00:00 / 64
-Font\K Gothic\_はじめにお読みください.txt
-	-> File 1970/01/01 (木) 00:00:00 / 1970/01/01 (木) 00:00:00 / 2,741
-Font\木漏れ日ゴシック
-	-> Directory
-Font\木漏れ日ゴシック\_readme.txt
-	-> File 1970/01/01 (木) 00:00:00 / 1970/01/01 (木) 00:00:00 / 1,242
-Font\木漏れ日ゴシック\_source.txt
-	-> File 1970/01/01 (木) 00:00:00 / 1970/01/01 (木) 00:00:00 / 82
-Font\木漏れ日ゴシック\komorebi-gothic.ttf
-	-> File 1970/01/01 (木) 00:00:00 / 1970/01/01 (木) 00:00:00 / 4,309,524
-General
+﻿General
 	-> Directory
 General\Dummy.png
-	-> File 1970/01/01 (木) 00:00:00 / 1970/01/01 (木) 00:00:00 / 188
+	-> File 2023/06/27 (火) 22:08:39 / 2021/01/13 (水) 13:32:40 / 188
 General\Transparent.png
-	-> File 1970/01/01 (木) 00:00:00 / 1970/01/01 (木) 00:00:00 / 145
+	-> File 2023/06/27 (火) 22:08:39 / 2023/05/31 (水) 02:21:38 / 145
 General\WhiteBox.png
-	-> File 1970/01/01 (木) 00:00:00 / 1970/01/01 (木) 00:00:00 / 124
+	-> File 2023/06/27 (火) 22:08:39 / 2021/01/13 (水) 13:32:40 / 124
 General\WhiteCircle.png
-	-> File 1970/01/01 (木) 00:00:00 / 1970/01/01 (木) 00:00:00 / 1,448
+	-> File 2023/06/27 (火) 22:08:39 / 2021/01/13 (水) 13:32:41 / 1,448
 General\app.ico
-	-> File 1970/01/01 (木) 00:00:00 / 1970/01/01 (木) 00:00:00 / 2,734
+	-> File 2023/06/27 (火) 22:08:39 / 2021/01/23 (土) 00:53:13 / 2,734
 Handmade
 	-> Directory
-Handmade\Copyright.png
-	-> File 1970/01/01 (木) 00:00:00 / 1970/01/01 (木) 00:00:00 / 5,134
 Handmade\muon10s.mp3
-	-> File 1970/01/01 (木) 00:00:00 / 1970/01/01 (木) 00:00:00 / 201,143
+	-> File 2023/06/27 (火) 22:08:39 / 2023/05/05 (金) 16:46:19 / 201,143
 Handmade\muon1s.wav
-	-> File 1970/01/01 (木) 00:00:00 / 1970/01/01 (木) 00:00:00 / 176,444
-Music
-	-> Directory
-Music\ユーフルカ
-	-> Directory
-Music\ユーフルカ\Remotest-Liblary_loop
-	-> Directory
-Music\ユーフルカ\Remotest-Liblary_loop\Remotest-Liblary_loop.m4a
-	-> File 1970/01/01 (木) 00:00:00 / 1970/01/01 (木) 00:00:00 / 2,330,489
-Music\ユーフルカ\Remotest-Liblary_loop\_Remotest-Liblary_loop.txt
-	-> File 1970/01/01 (木) 00:00:00 / 1970/01/01 (木) 00:00:00 / 723
-Music\ユーフルカ\_source.txt
-	-> File 1970/01/01 (木) 00:00:00 / 1970/01/01 (木) 00:00:00 / 41
-Picture
-	-> Directory
-Picture\ぱくたそ
-	-> Directory
-Picture\ぱくたそ\KAZUKIcghvbnkm.png
-	-> File 1970/01/01 (木) 00:00:00 / 1970/01/01 (木) 00:00:00 / 1,087,219
-Picture\ぱくたそ\_source.txt
-	-> File 1970/01/01 (木) 00:00:00 / 1970/01/01 (木) 00:00:00 / 43
-SoundEffect
-	-> Directory
-SoundEffect\ユーフルカ
-	-> Directory
-SoundEffect\ユーフルカ\_source.txt
-	-> File 1970/01/01 (木) 00:00:00 / 1970/01/01 (木) 00:00:00 / 49
-SoundEffect\ユーフルカ\load.wav
-	-> File 1970/01/01 (木) 00:00:00 / 1970/01/01 (木) 00:00:00 / 707,320
-SoundEffect\ユーフルカ\save-01.wav
-	-> File 1970/01/01 (木) 00:00:00 / 1970/01/01 (木) 00:00:00 / 586,440
-SoundEffect\ユーフルカ\shop.wav
-	-> File 1970/01/01 (木) 00:00:00 / 1970/01/01 (木) 00:00:00 / 179,380
+	-> File 2023/06/27 (火) 22:08:39 / 2023/05/05 (金) 16:45:49 / 176,444

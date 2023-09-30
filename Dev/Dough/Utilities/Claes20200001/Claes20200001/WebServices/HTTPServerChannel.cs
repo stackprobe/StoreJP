@@ -9,8 +9,6 @@ namespace Charlotte.WebServices
 {
 	public class HTTPServerChannel
 	{
-		public SockChannel Channel;
-
 		/// <summary>
 		/// 要求タイムアウト_ミリ秒
 		/// -1 == INFINITE
@@ -42,6 +40,10 @@ namespace Charlotte.WebServices
 		/// -1 == INFINITE
 		/// </summary>
 		public static long BodySizeMax = 512000000; // 512 MB
+
+		// <---- init if needed
+
+		public SockChannel Channel;
 
 		public IEnumerable<int> RecvRequest()
 		{
@@ -96,7 +98,7 @@ namespace Charlotte.WebServices
 			{
 				for (int index = 0; index < src.Length; index++)
 				{
-					if (src[index] == 0x25) // ? '%'
+					if (src[index] == 0x25 && index + 2 <= src.Length) // ? '%'
 					{
 						writer.WriteByte((byte)Convert.ToInt32(Encoding.ASCII.GetString(P_GetBytesRange(src, index + 1, 2)), 16));
 						index += 2;
@@ -162,7 +164,7 @@ namespace Charlotte.WebServices
 					if (chr == LF)
 						break;
 
-					if (LINE_LEN_MAX < wroteSize)
+					if (LINE_LEN_MAX <= wroteSize)
 						throw new OverflowException("Received line is too long");
 
 					if (chr < 0x20 || 0x7e < chr) // ? not ASCII -> SPACE
@@ -178,7 +180,7 @@ namespace Charlotte.WebServices
 		private IEnumerable<int> RecvHeader()
 		{
 			const int WEIGHT = 256;
-			const int HEADERS_LEN_MAX = 128 * 1024 + 256 * WEIGHT;
+			const int HEADER_LEN_MAX = 128 * 1024 + 256 * WEIGHT;
 
 			int roughHeaderLength = 0;
 
@@ -197,7 +199,7 @@ namespace Charlotte.WebServices
 
 				roughHeaderLength += line.Length + WEIGHT;
 
-				if (HEADERS_LEN_MAX < roughHeaderLength)
+				if (HEADER_LEN_MAX < roughHeaderLength)
 					throw new OverflowException("Received header is too long");
 
 				if (line[0] <= ' ') // HACK: 行折り畳み(line folding)対応 -- 行折り畳みは廃止されたっぽいけど念のため対応しておく。
@@ -367,8 +369,8 @@ namespace Charlotte.WebServices
 
 		public int ResStatus = 200;
 		public List<string[]> ResHeaderPairs = new List<string[]>();
-		public IEnumerable<byte[]> ResBody = null; // ゼロバイトの要素を含んでも良い。null のときゼロバイトの応答ボディを応答する。
-		public long ResBodyLength = -1L; // 応答ボディの長さをセットすること。ResBodyLength == -1L のとき場合によってチャンクで応答する。
+		public IEnumerable<byte[]> ResBody = null; // ゼロバイトの要素を含んでも良い。null == 応答ボディ無し(ゼロバイトの応答ボディではないことに注意)
+		public long ResBodyLength = -1L; // 応答ボディの長さをセットすること。-1L == チャンクで応答する。
 
 		// <-- HTTPConnected 内で(必要に応じて)設定しなければならないフィールド
 

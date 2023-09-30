@@ -185,7 +185,7 @@ namespace Charlotte.WebServices
 			public static int COUNTER_NUM = 5;
 			public static int COUNT_LIMIT = 10000;
 
-			// ----
+			// <---- init if needed
 
 			private static TimeWaitMonitor _i = null;
 

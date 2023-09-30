@@ -26,9 +26,11 @@ namespace Charlotte.WebServices
 						// -- Method == ASCII && not-null
 						// -- PathQuery == SJIS && not-null
 						// -- HTTPVersion == ASCII && not-null
-						// -- HeaderPairs == (全てのキーと値について) ASCII && not-null
+						// -- HeaderPairs == not-null && (全てのキーと値について ASCII && not-null)
 						// ---- ASCII == [\u0020-\u007e]*
 						// ---- SJIS == ToJString(, true, false, false, true)
+						// 以下も保証される。
+						// -- Body == not-null
 
 						Console.WriteLine(channel.FirstLine);
 						Console.WriteLine(channel.Method);
@@ -73,18 +75,18 @@ namespace Charlotte.WebServices
 		/// </summary>
 		public Action<HTTPServerChannel> HTTPConnected = channel => { };
 
+		/// <summary>
+		/// キープアライブのタイムアウト_ミリ秒
+		/// -1 == INFINITE
+		/// </summary>
+		public static int KeepAliveTimeoutMillis = 5000;
+
 		// <---- init if needed
 
 		public HTTPServer()
 		{
 			PortNo = 80;
 		}
-
-		/// <summary>
-		/// Keep-Alive-タイムアウト_ミリ秒
-		/// -1 == INFINITE
-		/// </summary>
-		public static int KeepAliveTimeoutMillis = 5000;
 
 		protected override IEnumerable<int> E_Connected(SockChannel channel)
 		{

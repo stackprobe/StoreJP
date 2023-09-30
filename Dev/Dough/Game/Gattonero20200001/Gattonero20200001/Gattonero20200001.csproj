@@ -98,6 +98,7 @@
     <Compile Include="GameCommons\ResourceCluster.cs" />
     <Compile Include="GameCommons\VScreen.cs" />
     <Compile Include="GameSetting.cs" />
+    <Compile Include="Games\GameMain.cs" />
     <Compile Include="GUICommons\GUICommon.cs" />
     <Compile Include="GUICommons\GUIProcMain.cs" />
     <Compile Include="Inputs.cs" />
@@ -113,9 +114,6 @@
     <Compile Include="SoundEffects.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TProgram.cs" />
-    <Compile Include="Games\Logo.cs" />
-    <Compile Include="Games\SimpleMenu.cs" />
-    <Compile Include="Games\TitleMenu.cs" />
     <EmbeddedResource Include="GameCommons\LibbonDialog.resx">
       <DependentUpon>LibbonDialog.cs</DependentUpon>
     </EmbeddedResource>

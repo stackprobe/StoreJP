@@ -1258,6 +1258,104 @@ namespace Charlotte.Commons
 			}
 		}
 
+		#region UTF8Conv
+
+		public static class UTF8Conv
+		{
+			/// <summary>
+			/// バイト列を UTF-8 の文字列に変換する。
+			/// 以下に該当しない文字は '?' に置き換える。
+			/// -- CR
+			/// -- LF
+			/// -- '\t'
+			/// -- ASCII == '\u0020' + SCommon.ASCII
+			/// -- 半角カナ文字 == SCommon.KANA
+			/// -- 全角文字 == SCommon.GetJChars()
+			/// </summary>
+			/// <param name="src">バイト列</param>
+			/// <returns>文字列</returns>
+			public static string ToJString(byte[] src)
+			{
+				if (src == null)
+					src = SCommon.EMPTY_BYTES;
+
+				int startPos = 0;
+
+				// ? BOM 有り
+				if (
+					3 <= src.Length &&
+					src[0] == 0xEF &&
+					src[1] == 0xBB &&
+					src[2] == 0xBF
+					)
+					startPos = 3; // BOM をスキップする。
+
+				src = SCommon.GetPart(src, startPos); // バイト列の複製
+				ToFairUTF8Bytes(src);
+				return Encoding.UTF8.GetString(src);
+			}
+
+			private static UInt64[] UTF8CodeMap = null;
+
+			private static UInt64[] GetUTF8CodeMap()
+			{
+				UInt64[] codeMap = new UInt64[0x1000000 / 64];
+
+				foreach (char chr in "\r\n\t\u0020" + SCommon.ASCII + SCommon.KANA + SCommon.GetJChars())
+				{
+					byte[] bytes = Encoding.UTF8.GetBytes(new string(new char[] { chr }));
+
+					if (
+						bytes.Length < 1 ||
+						bytes.Length > 3 ||
+						bytes.Any(bChr => bChr == 0x00)
+						)
+						throw null; // never
+
+					int code = bytes[0];
+
+					for (int bOfst = 1; bOfst < bytes.Length; bOfst++)
+						code |= (int)bytes[bOfst] << (bOfst * 8);
+
+					codeMap[code / 64] |= (UInt64)1 << (code % 64);
+				}
+				return codeMap;
+			}
+
+			private static void ToFairUTF8Bytes(byte[] bytes)
+			{
+				if (UTF8CodeMap == null)
+					UTF8CodeMap = GetUTF8CodeMap();
+
+				for (int index = 0; index < bytes.Length; )
+				{
+					bool matched = false;
+
+					for (int span = 1; span <= 3 && index + span <= bytes.Length; span++)
+					{
+						int code = bytes[index];
+
+						for (int bOfst = 1; bOfst < span; bOfst++)
+							code |= (int)bytes[index + bOfst] << (bOfst * 8);
+
+						if ((UTF8CodeMap[code / 64] & ((UInt64)1 << (code % 64))) != 0)
+						{
+							matched = true;
+							index += span;
+							break;
+						}
+					}
+					if (!matched)
+					{
+						bytes[index] = 0x3f; // '?'
+						index++;
+					}
+				}
+			}
+		}
+
+		#endregion
+
 		/// <summary>
 		/// 文字列をSJIS(CP-932)の文字列に変換する。
 		/// 以下の関数を踏襲した。(慣習的実装)

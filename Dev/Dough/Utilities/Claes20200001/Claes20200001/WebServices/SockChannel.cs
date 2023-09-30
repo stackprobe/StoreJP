@@ -18,6 +18,14 @@ namespace Charlotte.WebServices
 
 		// <---- need init
 
+		/// <summary>
+		/// スレッド占用タイムアウト_ミリ秒
+		/// -1 == INFINITE
+		/// </summary>
+		public static int ThreadTimeoutMillis = 100;
+
+		// <---- init if needed
+
 		public bool FirstLineRecving = false;
 
 		/// <summary>
@@ -31,12 +39,6 @@ namespace Charlotte.WebServices
 		/// null == リセット状態
 		/// </summary>
 		public DateTime? ThreadTimeoutTime = null;
-
-		/// <summary>
-		/// スレッド占用タイムアウト_ミリ秒
-		/// -1 == INFINITE
-		/// </summary>
-		public static int ThreadTimeoutMillis = 100;
 
 		/// <summary>
 		/// 無通信タイムアウト_ミリ秒
